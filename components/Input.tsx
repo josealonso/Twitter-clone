@@ -24,7 +24,7 @@ export const Input = () => {
     const filePickerRef = useRef(null);
 
     // Upload posts to firebase
-    const sendPost = () => {
+    const sendPost = async () => {
         if (loading) return;
         setLoading(true);
 
@@ -38,9 +38,32 @@ export const Input = () => {
         });
 
         const imageRef = ref(storage, `posts/${docRef.id}/image`);
+
+        if (selectedFile) {
+            await uploadString(imageRef, selectedFile, "data_url").then(async () => {
+                const downloadURL = await getDownloadURL(imageRef);
+                await updateDoc(doc(db, "posts", docRef.id), {
+                    image: downloadURL,
+                });
+            });
+        }
+
+        setLoading(false);
+        setInput("");
+        setSelectedFile(null);
+        setShowEmojis(false);
     };
 
-    const addImageToPost = () => { };
+    const addImageToPost = (e: Blob) => {
+        const reader = new FileReader();
+        if (e.target.files[0]) {
+            reader.readAsDataURL(e.target.files[0]);
+        }
+
+        reader.onload = (readerEvent) => {
+            setSelectedFile(readerEvent.target?.result);
+        }
+    };
 
     const addEmoji = (e: any) => {
         let sym = e.unified.split("-");
@@ -89,6 +112,8 @@ export const Input = () => {
                     )}
                 </div>
 
+                {!loading && (
+    )}
                 <div className="flex items-center justify-between pt-2.5">
                     <div className="flex items-center">
                         <div className="icon" onClick={() =>
@@ -131,7 +156,8 @@ export const Input = () => {
                         )}
                     </div>
                 </div>
+
             </div>
         </div >
-    )
+    );
 }
