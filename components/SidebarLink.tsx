@@ -16,13 +16,12 @@ export const SidebarLink = (props: SidebarLinkProps) => {
     return (
         <div
             className={`text-[#d9d9d9] flex items-center justify-center
-        xl:justify-start text-xl space-x-3 hoverAnimation`}>
-            {/* ${active && "font-bold"
-                }`}> */}
-            <span className="h-7 bg-cyan-700">{React.createElement(icon)}</span>
-            {/* <{icon} className="h-7" /> */}
-
-            <span className="hidden xl:inline bg-cyan">{text}</span>
+        xl:justify-start text-xl space-x-3 hoverAnimation 
+        ${active && "font-bold"
+                }`}> 
+            <span className="h-7">{React.createElement(icon)}</span>
+            
+            <span className="hidden xl:inline">{text}</span>
         </div>
     )
 }
