@@ -6,7 +6,7 @@ import {
 } from "react-icons/ai";
 import { FaHashtag as HashtagIcon } from "react-icons/fa";
 import { TbClipboardList as ClipboardListIcon } from "react-icons/tb";
-import { BsBookmark as BookmarkIcon } from "react-icons/bs";
+import { BsBookmark as BookmarkIcon, BsThreeDots as HorizontalDots } from "react-icons/bs";
 import { VscCircleLargeOutline as DotsCircleHorizontalIcon } from "react-icons/vsc";
 
 export const Sidebar = () => {
@@ -20,16 +20,16 @@ export const Sidebar = () => {
                 <Image src="https://rb.gy/ogau5a" width={30} height={30} />
             </div>
             <div className="space-y-2.5 mt-4 mb-2.5 xl:ml-24">
-                <SidebarLink text="Home" image={HomeIcon} active />
-                <SidebarLink text="Explore" image={HashtagIcon} />
-                <SidebarLink text="Notifications" image={BellIcon} />
-                <SidebarLink text="Messages" image={InboxIcon} />
-                <SidebarLink text="Bookmarks" image={BookmarkIcon} />
-                <SidebarLink text="Lists" image={ClipboardListIcon} />
-                <SidebarLink text="Profile" image={UserIcon} />
-                <SidebarLink text="More" image={DotsCircleHorizontalIcon} />
+                <SidebarLink text="Home" icon={HomeIcon} active />
+                <SidebarLink text="Explore" icon={HashtagIcon} />
+                <SidebarLink text="Notifications" icon={BellIcon} />
+                <SidebarLink text="Messages" icon={InboxIcon} />
+                <SidebarLink text="Bookmarks" icon={BookmarkIcon} />
+                <SidebarLink text="Lists" icon={ClipboardListIcon} />
+                <SidebarLink text="Profile" icon={UserIcon} />
+                <SidebarLink text="More" icon={DotsCircleHorizontalIcon} />
             </div>
-            <button className="hidden xl:inline ml-auto bg-[#155682] text-white
+            <button style={{fontSize: "2rem" }} className="hidden xl:inline ml-auto bg-[#155682] text-white
             rounded-full w-56 h-[52px] text-lg font-bold shadow-md hover:bg-[#1a8cd8]">
                 Tweet
             </button>
@@ -44,7 +44,7 @@ export const Sidebar = () => {
                     <h4 className="font-bold">firebase 1875</h4>
                     <p className="text-[#6e767d]">@firebase1875</p>
                 </div>
-                <DotsCircleHorizontalIcon className="h-5 hidden xl:inline ml-10"
+                <HorizontalDots className="h-5 hidden xl:inline ml-10"
                 />
             </div>
         </div>
