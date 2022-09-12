@@ -6,20 +6,43 @@ import { RiRemixiconLine as XIcon } from "react-icons/ri";
 import { HiOutlineEmojiHappy, HiPhotograph } from "react-icons/hi";
 import "emoji-mart/css/emoji-mart.css";
 import { Picker } from "emoji-mart";
+import { db, storage } from "../configs/firebase";
+import {
+    addDoc,
+    collection,
+    doc,
+    serverTimestamp,
+    updateDoc,
+} from "@firebase/firestore";
+import { getDownloadURL, ref, uploadString } from "@firebase/storage";
 
 export const Input = () => {
     const [input, setInput] = useState("");
     const [selectedFile, setSelectedFile] = useState(null);
     const [showEmojis, setShowEmojis] = useState(false);
+    const [loading, setLoading] = useState(false);
     const filePickerRef = useRef(null);
 
-    const sendPost = () => { 
-        
+    // Upload posts to firebase
+    const sendPost = () => {
+        if (loading) return;
+        setLoading(true);
+
+        const docRef = await addDoc(collection(db, "posts"), {
+            // id: session.user.id,
+            // username: session.user.name,
+            // userImg: session.user.image,
+            // tag: session.user.tag,
+            text: input,
+            timestamp: serverTimestamp(),
+        });
+
+        const imageRef = ref(storage, `posts/${docRef.id}/image`);
     };
 
     const addImageToPost = () => { };
 
-    const addEmoji = (e:any) => {
+    const addEmoji = (e: any) => {
         let sym = e.unified.split("-");
         let codeArray: string[] = [];
         sym.forEach((el: string) => codeArray.push("0x" + el));
