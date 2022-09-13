@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react"
 import { BsFillCalendarDayFill as CalendarIcon } from "react-icons/bs";
 import { FaChartBar as ChartBarIcon } from "react-icons/fa";
 import { RiRemixiconLine as XIcon } from "react-icons/ri";
-import { HiOutlineEmojiHappy as EmojiHappyIcon , HiPhotograph as PhotographIcon } from "react-icons/hi";
+import { HiOutlineEmojiHappy as EmojiHappyIcon, HiPhotograph as PhotographIcon } from "react-icons/hi";
 // import 'emoji-mart/css/emoji-mart.css';
 import { EmojiData, Picker } from "emoji-mart";
 import { db, storage } from "../configs/firebase";
@@ -24,33 +24,34 @@ export const Input = () => {
     const filePickerRef = useRef<HTMLInputElement>(null);
 
     // Upload posts to firebase
-    const sendPost = () => {
-        console.log("This is sendPost !!");
-    }
-    // const sendPost = async () => {
-    //     if (loading) return;
-    //     setLoading(true);
-
-    //     const docRef = await addDoc(collection(db, "posts"), {
-    //         // id: session.user.id,
-    //         // username: session.user.name,
-    //         // userImg: session.user.image,
-    //         // tag: session.user.tag,
-    //         text: input,
-    //         timestamp: serverTimestamp(),
-    //     });
-
-    //     const imageRef = ref(storage, `posts/${docRef.id}/image`);
-
-    // if (selectedFile) {
-    //     await uploadString(imageRef, selectedFile, "data_url").then(async () => {
-    //         const downloadURL = await getDownloadURL(imageRef);
-    //         await updateDoc(doc(db, "posts", docRef.id), {
-    //             image: downloadURL,
-    //         });
-    //     });
+    // const sendPost = () => {
+    //     console.log("This is sendPost !!");
     // }
+    const sendPost = async () => {
+        if (loading) return;
+        setLoading(true);
 
+        const docRef = await addDoc(collection(db, "posts"), {
+            // id: session.user.id,
+            // username: session.user.name,
+            // userImg: session.user.image,
+            // tag: session.user.tag,
+            text: input,
+            timestamp: serverTimestamp(),
+        });
+
+        const imageRef = ref(storage, `posts/${docRef.id}/image`);
+
+        if (selectedFile) {
+            await uploadString(imageRef, selectedFile, "data_url").then(async () => {
+                const downloadURL = await getDownloadURL(imageRef);
+                await updateDoc(doc(db, "posts", docRef.id), {
+                    image: downloadURL,
+                });
+            });
+        }
+    }
+    
     // setLoading(false);   // Error: Too many re-renders
     // setInput("");
     // setSelectedFile("");
