@@ -81,18 +81,13 @@ export const Input = () => {
     //     setSelectedOption(value);
     // };
 
-    // const addEmoji = (event: React.ChangeEvent<EmojiData>) => {
-    // const addEmoji = (event: EmojiData) => {
-    // console.log("INSIDE addEmoji !!");
-    // let sym: Emoji = event as Emoji;
-    // let emojiInString = sym.unified ? sym.unified.split("-") : undefined;
-    // if (emojiInString) {
-    //     let codeArray: number[] = [];
-    //     emojiInString.forEach((el: string) => codeArray.push(parseInt("0x" + el)));
-    //     let emojiValue = String.fromCodePoint(...codeArray);
-    //     setInput(input + emojiValue);
-    // }
-    // };
+    const addEmoji = (event: Emoji) => {
+        console.log("INSIDE addEmoji !!");
+        console.log("emoji: ", event);
+        let emojiText = event.native;
+        console.log("emojiText: ", emojiText);
+        setInput(input + emojiText);
+    };
 
     return (
         <div
@@ -170,7 +165,7 @@ export const Input = () => {
                                 }}>
                                 {showEmojis && (
                                     <Picker data={data}
-                                        onEmojiSelect={console.log}
+                                        onEmojiSelect={addEmoji}
                                         theme="dark"
                                     />
                                 )}
