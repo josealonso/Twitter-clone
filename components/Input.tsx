@@ -4,7 +4,10 @@ import { FaChartBar as ChartBarIcon } from "react-icons/fa";
 import { RiRemixiconLine as XIcon } from "react-icons/ri";
 import { HiOutlineEmojiHappy as EmojiHappyIcon, HiPhotograph as PhotographIcon } from "react-icons/hi";
 // import 'emoji-mart/css/emoji-mart.css';
-import { EmojiData, Picker } from "emoji-mart";
+import '@emoji-mart/data/sets/14/apple.json';
+// import { EmojiData, Picker } from "emoji-mart";
+import data from "@emoji-mart/data";
+import Picker from "@emoji-mart/react";
 import { db, storage } from "../configs/firebase";
 import {
     addDoc,
@@ -23,10 +26,6 @@ export const Input = () => {
     const [loading, setLoading] = useState(false);
     const filePickerRef = useRef<HTMLInputElement>(null);
 
-    // Upload posts to firebase
-    // const sendPost = () => {
-    //     console.log("This is sendPost !!");
-    // }
     const sendPost = async () => {
         if (loading) return;
         setLoading(true);
@@ -51,7 +50,7 @@ export const Input = () => {
             });
         }
     }
-    
+
     // setLoading(false);   // Error: Too many re-renders
     // setInput("");
     // setSelectedFile("");
@@ -63,7 +62,6 @@ export const Input = () => {
     // }
 
     const addImageToPost = (event: React.ChangeEvent<HTMLInputElement>) => {
-        emoji = 23;
         const enteredFile = event.target.files ? event.target.files[0] : undefined;
         const fileReader = new FileReader();
         if (enteredFile) {
@@ -85,7 +83,7 @@ export const Input = () => {
 
     // const addEmoji = (event: React.ChangeEvent<EmojiData>) => {
     // const addEmoji = (event: EmojiData) => {
-    //     console.log("INSIDE addEmoji !!");
+    // console.log("INSIDE addEmoji !!");
     // let sym: Emoji = event as Emoji;
     // let emojiInString = sym.unified ? sym.unified.split("-") : undefined;
     // if (emojiInString) {
@@ -162,6 +160,19 @@ export const Input = () => {
                                 <CalendarIcon className="text-[#1d9bf0] h-[22px]" />
                             </div>
 
+                            {showEmojis && (
+                                <Picker
+
+                                    style={{
+                                        position: "absolute",
+                                        marginTop: "465px",
+                                        marginLeft: -40,
+                                        maxWidth: "320px",
+                                        borderRadius: "20px",
+                                    }}
+                                    theme="dark"
+                                />
+                            )}
                         </div>
                         <button
                             className="bg-[#1d9bf0] text-white rounded-full px-4 py-1.5 font-bold shadow-md hover:bg-[#1a8cd8] disabled:hover:bg-[#1d9bf0] disabled:opacity-50 disabled:cursor-default"
