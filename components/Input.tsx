@@ -3,9 +3,6 @@ import { BsFillCalendarDayFill as CalendarIcon } from "react-icons/bs";
 import { FaChartBar as ChartBarIcon } from "react-icons/fa";
 import { RiRemixiconLine as XIcon } from "react-icons/ri";
 import { HiOutlineEmojiHappy as EmojiHappyIcon, HiPhotograph as PhotographIcon } from "react-icons/hi";
-// import 'emoji-mart/css/emoji-mart.css';
-import '@emoji-mart/data/sets/14/apple.json';
-// import { EmojiData, Picker } from "emoji-mart";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import { db, storage } from "../configs/firebase";
@@ -56,11 +53,6 @@ export const Input = () => {
     // setSelectedFile("");
     // setShowEmojis(false);
 
-    // const setInput = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    // const setInput = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    //     const value = event.target.value;
-    // }
-
     const addImageToPost = (event: React.ChangeEvent<HTMLInputElement>) => {
         const enteredFile = event.target.files ? event.target.files[0] : undefined;
         const fileReader = new FileReader();
@@ -75,16 +67,10 @@ export const Input = () => {
         };
     };
 
-    // This function is triggered when the select changes
-    // const selectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    //     const value = event.target.value;
-    //     setSelectedOption(value);
-    // };
-
     const addEmoji = (event: Emoji) => {
         console.log("INSIDE addEmoji !!");
         console.log("emoji: ", event);
-        let emojiText = event.native;
+        let emojiText = event.native;   // Reason of this "error": the emoji package has no types
         console.log("emojiText: ", emojiText);
         setInput(input + emojiText);
     };
@@ -184,5 +170,4 @@ export const Input = () => {
         </div>
 
     );
-
 }
