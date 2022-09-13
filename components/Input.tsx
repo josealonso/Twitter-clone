@@ -22,7 +22,7 @@ import { Emoji } from "emoji-mart/dist-es/utils/data";
 export const Input = () => {
     const [input, setInput] = useState("");
     const [selectedFile, setSelectedFile] = useState("");
-    const [showEmojis, setShowEmojis] = useState(true);   // (false);
+    const [showEmojis, setShowEmojis] = useState(false);
     const [loading, setLoading] = useState(false);
     const filePickerRef = useRef<HTMLInputElement>(null);
 
@@ -160,19 +160,21 @@ export const Input = () => {
                                 <CalendarIcon className="text-[#1d9bf0] h-[22px]" />
                             </div>
 
-                            {showEmojis && (
-                                <Picker
-
-                                    style={{
-                                        position: "absolute",
-                                        marginTop: "465px",
-                                        marginLeft: -40,
-                                        maxWidth: "320px",
-                                        borderRadius: "20px",
-                                    }}
-                                    theme="dark"
-                                />
-                            )}
+                            <div
+                                style={{
+                                    position: "absolute",
+                                    marginTop: "500px",
+                                    marginRight: "60px",
+                                    maxWidth: "320px",
+                                    borderRadius: "30px",
+                                }}>
+                                {showEmojis && (
+                                    <Picker data={data}
+                                        onEmojiSelect={console.log}
+                                        theme="dark"
+                                    />
+                                )}
+                            </div>
                         </div>
                         <button
                             className="bg-[#1d9bf0] text-white rounded-full px-4 py-1.5 font-bold shadow-md hover:bg-[#1a8cd8] disabled:hover:bg-[#1d9bf0] disabled:opacity-50 disabled:cursor-default"
