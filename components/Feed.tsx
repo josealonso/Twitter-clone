@@ -1,7 +1,23 @@
+import { collection, DocumentData, onSnapshot, orderBy, query } from "firebase/firestore";
+import { useEffect, useState } from "react";
 import { HiOutlineSparkles as SparklesIcon } from "react-icons/hi";
+import { db } from "../configs/firebase";
 import { Input } from "./Input";
+import { MyPost, Post } from "./Post";
 
 export const Feed = () => {
+    const [posts, setPosts] = useState<DocumentData>([]);
+
+    useEffect(
+        () =>
+            onSnapshot(
+                query(collection(db, "posts"), orderBy("timestamp", "desc")),
+                (snapshot) => {
+                    setPosts(snapshot.docs);
+                }
+            ),
+        [db]
+    );
 
     return (
         <div className="text-white flex-grow border-l border-r 
@@ -16,6 +32,11 @@ export const Feed = () => {
                 </div>
             </div>
             <Input />
+            <div className="pb-72">
+                {posts.map((post: MyPost) => (
+                    <Post key={post.id} id={post.id} post={post.data()} />
+                ))}
+            </div>
         </div>
     )
 }
