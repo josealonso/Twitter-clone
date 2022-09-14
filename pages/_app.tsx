@@ -1,17 +1,22 @@
-import '../styles/globals.css';
+import { AppProps } from "next/app";
 import { SessionProvider } from 'next-auth/react';
+import '../styles/globals.css';
 
-interface PageProps {
-  session: any;
-}
+// interface PageProps {
+//   session: any;
+// }
 
-export default function App({
-  Component,
-  pageProps: { session, ...pageProps },
-}) {
+// interface SessionProviderProps {
+//   session: any;
+// }
+
+export default function App({ Component, pageProps }: AppProps) {
   return (
-    <SessionProvider session={session}>
+    <SessionProvider
+    // @ts-ignore
+      session={pageProps.session}
+    >
       <Component {...pageProps} />
     </SessionProvider>
-  );
+  )
 }
