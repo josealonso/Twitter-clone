@@ -1,5 +1,9 @@
 import { DocumentData } from "firebase/firestore";
+import { useSession } from "next-auth/react";
+import { useState } from "react";
 import { HiDotsHorizontal } from "react-icons/hi";
+import { useRecoilState } from "recoil";
+import { modalState, postIdState } from "../atoms/modelAtom";
 
 export type MyPost = Props;
 
@@ -12,6 +16,10 @@ interface Props {
 
 export const Post = (props: Props) => {
     const { id, post, postPage } = props;
+    const { data: session } = useSession();
+    const [isOpen, setIsOpen] = useRecoilState(modalState);
+    const [postId, setPostId] = useRecoilState(postIdState);
+    const [comments, setComments]= useState([]);
 
     return (
         <div className="p-3 flex cursor-pointer border-b border-gray-700">
@@ -76,7 +84,7 @@ export const Post = (props: Props) => {
                         }`}
                 >
 
-                    {/* All the icons for each post */}
+                    {/* All the icons for each post: comment, retweet, favorite, share and  */}
 
                 </div>
             </div>
