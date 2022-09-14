@@ -15,6 +15,7 @@ import {
 } from "@firebase/firestore";
 import { getDownloadURL, ref, uploadString } from "@firebase/storage";
 import { Emoji } from "emoji-mart/dist-es/utils/data";
+import { useSession } from "next-auth/react";
 
 export const Input = () => {
     const [input, setInput] = useState("");
@@ -23,15 +24,17 @@ export const Input = () => {
     const [loading, setLoading] = useState(false);
     const filePickerRef = useRef<HTMLInputElement>(null);
 
+    const { data: session } = useSession();
+
     const sendPost = async () => {
         if (loading) return;
         setLoading(true);
 
         const docRef = await addDoc(collection(db, "posts"), {
-            // id: session.user.id,
-            // username: session.user.name,
-            // userImg: session.user.image,
-            // tag: session.user.tag,
+            id: session?.user.id,
+            username: session?.user.name,
+            userImg: session?.user.image,
+            tag: session.user.tag,
             text: input,
             timestamp: serverTimestamp(),
         });
@@ -80,7 +83,7 @@ export const Input = () => {
             className={`border-b border-gray-700 p-3 flex gap-x-3
         overflow-y-scroll scrollbar-hide`} >
             <img
-                src="https://lh3.googleusercontent.com/a/....."
+                src={session?.user?.image}
                 alt=""
                 className="h-11 w-11 rounded-full cursor-pointer"
             />
