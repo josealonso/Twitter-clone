@@ -31,6 +31,7 @@ const Home = ({ trendingResults, followResults, providers }: Props) => {
       <main className='bg-black min-h-screen flex max-w-[1500px] mx-auto'>
         <Sidebar />
         <Feed />
+        {session.user?.name}
         {/* Widgets */}
         {/* Modal */}
       </main>
@@ -49,7 +50,7 @@ export async function getServerSideProps(context: any) {
   //   (res) => res.json(),
   // );
   const providers = await getProviders();
-  // const session = await getSession(context);
+  const session = await getSession(context);
 
   // return providers?.google;
   // {
@@ -61,7 +62,7 @@ export async function getServerSideProps(context: any) {
       // trendingResults,
       // followResults,
       providers,
-      // session,
+      session,
     },
   };
 }
