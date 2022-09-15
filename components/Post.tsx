@@ -1,4 +1,4 @@
-import { collection, deleteDoc, doc, DocumentData, onSnapshot, setDoc } from "firebase/firestore";
+import { collection, deleteDoc, doc, DocumentData, onSnapshot, orderBy, query, setDoc } from "firebase/firestore";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -30,6 +30,18 @@ export const Post = (props: Props) => {
     const [likes, setLikes] = useState([]);
     const [liked, setLiked] = useState(false);
     const router = useRouter();
+
+    useEffect(
+        () =>
+            onSnapshot(
+                query(
+                    collection(db, "posts", id, "comments"),
+                    orderBy("timestamp", "desc")
+                ),
+                (snapshot) => setComments(snapshot.docs)
+            ),
+        [db, id]
+    );
 
     useEffect(
         () =>
