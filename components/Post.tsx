@@ -8,12 +8,12 @@ import { useRecoilState } from "recoil";
 import { modalState, postIdState } from "../atoms/modelAtom";
 import { db } from "../configs/firebase";
 
-export type MyPost = Props;
+export type MyPost = PostProps;
 
-interface Props {
+interface PostProps {
     // key: number
-    id: number
-    post: DocumentData
+    id: number | undefined
+    post: DocumentData | undefined
     postPage?: MyPost
 }
 
@@ -21,7 +21,7 @@ interface Like {
     id: number
 }
 
-export const Post = (props: Props) => {
+export const Post = (props: PostProps) => {
     const { id, post, postPage } = props;
     const { data: session } = useSession();
     const [isOpen, setIsOpen] = useRecoilState(modalState);
