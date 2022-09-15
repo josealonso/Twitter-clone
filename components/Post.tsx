@@ -1,9 +1,12 @@
-import { DocumentData } from "firebase/firestore";
+import { deleteDoc, doc, DocumentData, setDoc } from "firebase/firestore";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { HiDotsHorizontal } from "react-icons/hi";
+import moment from "moment";
 import { useRecoilState } from "recoil";
 import { modalState, postIdState } from "../atoms/modelAtom";
+import { db } from "../configs/firebase";
 
 export type MyPost = Props;
 
@@ -14,15 +17,54 @@ interface Props {
     postPage?: MyPost
 }
 
+interface Like {
+    id: number
+}
+
 export const Post = (props: Props) => {
     const { id, post, postPage } = props;
     const { data: session } = useSession();
     const [isOpen, setIsOpen] = useRecoilState(modalState);
     const [postId, setPostId] = useRecoilState(postIdState);
-    const [comments, setComments]= useState([]);
+    const [comments, setComments] = useState([]);
+    const [likes, setLikes] = useState([]);
+    const [liked, setLiked] = useState(false);
+    const router = useRouter();
+
+    useEffect(
+        () =>
+            setLiked(
+                likes.findIndex((like: Like) => like.id === session?.user?.uid) !== -1
+            ),
+        [likes]
+    );
+
+    const likePost = async () => {
+        if (liked) {
+            await deleteDoc(doc(db, "posts", id, "likes", session?.user?.uid));
+        } else {
+            await setDoc(doc(db, "posts", id, "likes", session?.user?.uid), {
+                username: session?.user?.name,
+            });
+        }
+    };
+
+    function calculatePostTime(): string {
+        let relativeTimeInHours = moment().startOf('day').fromNow();
+        let relativeTimeInMinutes = moment().startOf('hour').fromNow();
+        let relativeTime = relativeTimeInMinutes;
+        let minutes = relativeTimeInMinutes.substring(0, 2);
+        let mins = parseInt(minutes);
+        if (mins > 59) {
+            relativeTime = relativeTimeInHours;
+        }
+        return relativeTime;
+    }
 
     return (
-        <div className="p-3 flex cursor-pointer border-b border-gray-700">
+        <div className="p-3 flex cursor-pointer border-b border-gray-700"
+            onClick={() => router.push(`/${id}`)}
+        >
             {!postPage && (
                 <img
                     src={post?.userImg}
@@ -54,7 +96,8 @@ export const Post = (props: Props) => {
                             </span>
                         </div>{" "}.{" "}
                         <span className="hover:underline text-sm sm:text-[15px]">
-                            {/* timestamp */}
+                            <p>{calculatePostTime()}</p>
+                            {/* <Moment fromNow>{post?.timestamp?.toDate()}</Moment> */}
                         </span>
                         {!postPage && (
                             <p className="text-[#d9d9d9] text-[15px] sm:text-base mt-0.5">
@@ -84,7 +127,7 @@ export const Post = (props: Props) => {
                         }`}
                 >
 
-                    {/* All the icons for each post: comment, retweet, favorite, share and  */}
+                    {/* All the icons for each post: comment, delete, favorite, share and  */}
 
                 </div>
             </div>
