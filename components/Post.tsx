@@ -3,7 +3,8 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { BsChatRightText as ChatIcon } from "react-icons/bs";
-import { HiDotsHorizontal } from "react-icons/hi";
+import { FaTrash as TrashIcon } from "react-icons/fa";
+import { HiDotsHorizontal, HiSwitchHorizontal } from "react-icons/hi";
 import Moment from "react-moment";
 import { useRecoilState } from "recoil";
 import { modalState, postIdState } from "../atoms/modelAtom";
@@ -169,6 +170,8 @@ export const Post = (props: PostProps) => {
                             setPostId(id?.toString());
                             setIsOpen(true);
                             console.log("You just clicked the Comment icon !!");
+                            console.log("user.uid: ", session.user.id);
+                            console.log("post.id: ", post?.id);
                         }}
                     >
                         <div className="icon group-hover:bg-[#1d9bf0] group-hover:bg-opacity-10">
@@ -182,7 +185,7 @@ export const Post = (props: PostProps) => {
                     </div>
                     {/* End of comment Icon */}
 
-                    {/* {session.user.uid === post?.id ? (
+                    {session?.user?.id === post?.id ? (
                         <div
                             className="flex items-center space-x-1 group"
                             onClick={(e) => {
@@ -198,11 +201,11 @@ export const Post = (props: PostProps) => {
                     ) : (
                         <div className="flex items-center space-x-1 group">
                             <div className="icon group-hover:bg-green-500/10">
-                                <SwitchHorizontalIcon className="h-5 group-hover:text-green-500" />
+                                <HiSwitchHorizontal className="h-5 group-hover:text-green-500" />
                             </div>
                         </div>
                     )}
- */}
+
 
                 </div>
             </div>
