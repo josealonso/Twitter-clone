@@ -2,7 +2,10 @@ import { collection, deleteDoc, doc, DocumentData, onSnapshot, orderBy, query, s
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { BsChatRightText as ChatIcon } from "react-icons/bs";
+import {
+    BsChatRightText as ChatIcon,
+    BsSuitHeart as HeartIcon, BsSuitHeartFill as HeartIconFilled
+} from "react-icons/bs";
 import { FaTrash as TrashIcon } from "react-icons/fa";
 import { HiDotsHorizontal, HiSwitchHorizontal } from "react-icons/hi";
 import Moment from "react-moment";
@@ -20,7 +23,7 @@ interface PostProps {
 }
 
 interface Like {
-    id: number
+    id: string | number
 }
 
 export const Post = (props: PostProps) => {
@@ -56,16 +59,16 @@ export const Post = (props: PostProps) => {
     useEffect(
         () =>
             setLiked(
-                likes.findIndex((like: Like) => like.id === session?.user?.uid) !== -1
+                likes.findIndex((like: Like) => like.id === session?.user?.id) !== -1
             ),
         [likes]
     );
 
     const likePost = async () => {
         if (liked) {
-            await deleteDoc(doc(db, "posts", id, "likes", session?.user?.uid));
+            await deleteDoc(doc(db, "posts", id, "likes", session?.user?.id));
         } else {
-            await setDoc(doc(db, "posts", id, "likes", session?.user?.uid), {
+            await setDoc(doc(db, "posts", id, "likes", session?.user?.id), {
                 username: session?.user?.name,
             });
         }
@@ -170,8 +173,6 @@ export const Post = (props: PostProps) => {
                             setPostId(id?.toString());
                             setIsOpen(true);
                             console.log("You just clicked the Comment icon !!");
-                            console.log("user.uid: ", session.user.id);
-                            console.log("post.id: ", post?.id);
                         }}
                     >
                         <div className="icon group-hover:bg-[#1d9bf0] group-hover:bg-opacity-10">
@@ -205,6 +206,30 @@ export const Post = (props: PostProps) => {
                             </div>
                         </div>
                     )}
+
+                    <div
+                        className="flex items-center space-x-1 group"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            likePost();
+                        }}
+                    >
+                        <div className="icon group-hover:bg-pink-600/10">
+                            {liked ? (
+                                <HeartIconFilled className="h-5 text-pink-600" />
+                            ) : (
+                                <HeartIcon className="h-5 group-hover:text-pink-600" />
+                            )}
+                        </div>
+                        {likes.length > 0 && (
+                            <span
+                                className={`group-hover:text-pink-600 text-sm ${liked && "text-pink-600"
+                                    }`}
+                            >
+                                {likes.length}
+                            </span>
+                        )}
+                    </div>
 
 
                 </div>
