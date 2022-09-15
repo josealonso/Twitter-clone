@@ -12,6 +12,9 @@ import Moment from "react-moment";
 import { useRecoilState } from "recoil";
 import { modalState, postIdState } from "../atoms/modelAtom";
 import { db } from "../configs/firebase";
+import { usePopperTooltip } from "react-popper-tooltip";
+import "react-popper-tooltip/dist/styles.css";
+import { CommentIcon } from "./CommentIcon";
 
 export type MyPost = PostProps;
 
@@ -35,6 +38,14 @@ export const Post = (props: PostProps) => {
     const [likes, setLikes] = useState([]);
     const [liked, setLiked] = useState(false);
     const router = useRouter();
+
+    const {
+        getArrowProps,
+        getTooltipProps,
+        setTooltipRef,
+        setTriggerRef,
+        visible,
+    } = usePopperTooltip();
 
     useEffect(
         () =>
@@ -175,65 +186,61 @@ export const Post = (props: PostProps) => {
                             console.log("You just clicked the Comment icon !!");
                         }}
                     >
-                        <div className="icon group-hover:bg-[#1d9bf0] group-hover:bg-opacity-10">
-                            <ChatIcon className="h-5 group-hover:text-[#1d9bf0]" />
-                        </div>
-                        {comments.length > 0 && (
-                            <span className="group-hover:text-[#1d9bf0] text-sm">
-                                {comments.length}
-                            </span>
-                        )}
-                    </div>
-                    {/* End of comment Icon */}
 
-                    {session?.user?.id === post?.id ? (
+                        <CommentIcon comments={comments} />
+
+                        {/* End of comment Icon */}
+
+                        {session?.user?.id === post?.id ? (
+                            <div
+                                className="flex items-center space-x-1 group"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    deleteDoc(doc(db, "posts", id));
+                                    router.push("/");
+                                }}
+                            >
+                                <div className="icon group-hover:bg-red-600/10">
+                                    <TrashIcon className="h-5 group-hover:text-red-600" />
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="flex items-center space-x-1 group">
+                                <div className="icon group-hover:bg-green-500/10">
+                                    <HiSwitchHorizontal className="h-5 group-hover:text-green-500" />
+                                </div>
+                            </div>
+                        )}
+
                         <div
                             className="flex items-center space-x-1 group"
                             onClick={(e) => {
                                 e.stopPropagation();
-                                deleteDoc(doc(db, "posts", id));
-                                router.push("/");
+                                likePost();
                             }}
                         >
-                            <div className="icon group-hover:bg-red-600/10">
-                                <TrashIcon className="h-5 group-hover:text-red-600" />
+                            <div className="icon group-hover:bg-pink-600/10">
+                                {liked ? (
+                                    <HeartIconFilled className="h-5 text-pink-600" />
+                                ) : (
+                                    <HeartIcon className="h-5 group-hover:text-pink-600" />
+                                )}
                             </div>
-                        </div>
-                    ) : (
-                        <div className="flex items-center space-x-1 group">
-                            <div className="icon group-hover:bg-green-500/10">
-                                <HiSwitchHorizontal className="h-5 group-hover:text-green-500" />
-                            </div>
-                        </div>
-                    )}
-
-                    <div
-                        className="flex items-center space-x-1 group"
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            likePost();
-                        }}
-                    >
-                        <div className="icon group-hover:bg-pink-600/10">
-                            {liked ? (
-                                <HeartIconFilled className="h-5 text-pink-600" />
-                            ) : (
-                                <HeartIcon className="h-5 group-hover:text-pink-600" />
+                            {likes.length > 0 && (
+                                <span
+                                    className={`group-hover:text-pink-600 text-sm ${liked && "text-pink-600"
+                                        }`}
+                                >
+                                    {likes.length}
+                                </span>
                             )}
                         </div>
-                        {likes.length > 0 && (
-                            <span
-                                className={`group-hover:text-pink-600 text-sm ${liked && "text-pink-600"
-                                    }`}
-                            >
-                                {likes.length}
-                            </span>
-                        )}
+
+
                     </div>
-
-
                 </div>
-            </div>
+            </div >
         </div>
     );
 }
+
