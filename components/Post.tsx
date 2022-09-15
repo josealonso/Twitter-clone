@@ -2,6 +2,7 @@ import { collection, deleteDoc, doc, DocumentData, onSnapshot, orderBy, query, s
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { BsChatRightText as ChatIcon } from "react-icons/bs";
 import { HiDotsHorizontal } from "react-icons/hi";
 import Moment from "react-moment";
 import { useRecoilState } from "recoil";
@@ -160,6 +161,48 @@ export const Post = (props: PostProps) => {
                 >
 
                     {/* All the icons for each post: comment, delete, favorite, share and  */}
+                    {/* Comment Icon */}
+                    <div
+                        className="flex items-center space-x-1 group"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            setPostId(id?.toString());
+                            setIsOpen(true);
+                            console.log("You just clicked the Comment icon !!");
+                        }}
+                    >
+                        <div className="icon group-hover:bg-[#1d9bf0] group-hover:bg-opacity-10">
+                            <ChatIcon className="h-5 group-hover:text-[#1d9bf0]" />
+                        </div>
+                        {comments.length > 0 && (
+                            <span className="group-hover:text-[#1d9bf0] text-sm">
+                                {comments.length}
+                            </span>
+                        )}
+                    </div>
+                    {/* End of comment Icon */}
+
+                    {/* {session.user.uid === post?.id ? (
+                        <div
+                            className="flex items-center space-x-1 group"
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                deleteDoc(doc(db, "posts", id));
+                                router.push("/");
+                            }}
+                        >
+                            <div className="icon group-hover:bg-red-600/10">
+                                <TrashIcon className="h-5 group-hover:text-red-600" />
+                            </div>
+                        </div>
+                    ) : (
+                        <div className="flex items-center space-x-1 group">
+                            <div className="icon group-hover:bg-green-500/10">
+                                <SwitchHorizontalIcon className="h-5 group-hover:text-green-500" />
+                            </div>
+                        </div>
+                    )}
+ */}
 
                 </div>
             </div>
