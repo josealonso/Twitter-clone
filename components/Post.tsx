@@ -1,9 +1,9 @@
-import { deleteDoc, doc, DocumentData, setDoc } from "firebase/firestore";
+import { collection, deleteDoc, doc, DocumentData, onSnapshot, setDoc } from "firebase/firestore";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { HiDotsHorizontal } from "react-icons/hi";
-import moment from "moment";
+import Moment from "react-moment";
 import { useRecoilState } from "recoil";
 import { modalState, postIdState } from "../atoms/modelAtom";
 import { db } from "../configs/firebase";
@@ -33,6 +33,14 @@ export const Post = (props: Props) => {
 
     useEffect(
         () =>
+            onSnapshot(collection(db, "posts", id, "likes"), (snapshot) =>
+                setLikes(snapshot.docs)
+            ),
+        [db, id]
+    );
+
+    useEffect(
+        () =>
             setLiked(
                 likes.findIndex((like: Like) => like.id === session?.user?.uid) !== -1
             ),
@@ -49,16 +57,29 @@ export const Post = (props: Props) => {
         }
     };
 
-    function calculatePostTime(): string {
-        let relativeTimeInHours = moment().startOf('day').fromNow();
-        let relativeTimeInMinutes = moment().startOf('hour').fromNow();
-        let relativeTime = relativeTimeInMinutes;
-        let minutes = relativeTimeInMinutes.substring(0, 2);
-        let mins = parseInt(minutes);
-        if (mins > 59) {
-            relativeTime = relativeTimeInHours;
-        }
-        return relativeTime;
+    function calculatePostTime(postTimeStamp: string): string {
+        console.log("Published -----", postTimeStamp);
+        let date = new Date(postTimeStamp);
+        let hours = date.getHours();
+        let minutes = date.getMinutes();
+
+        let output = ("0" + hours).slice(-2) + ':' + ("0" + minutes).slice(-2);
+        // console.log("PublishedAAAAAA -----", output);
+        let unixSeconds = parseInt(postTimeStamp.seconds);
+        let unixYears = unixSeconds / (365 * 24 * 60 * 60);
+        let unixdays = unixSeconds % (365 * 24 * 60 * 60);
+        // let secondsTilNow = Mome
+        console.log("PublishedAAAAAA -----", unixdays);
+        // let relativeTimeInHours = moment().startOf('day').fromNow();
+        // let relativeTimeInMinutes = moment().startOf('hour').fromNow();
+        // let relativeTime = relativeTimeInMinutes;
+        // let minutes = relativeTimeInMinutes.substring(0, 2);
+        // let mins = parseInt(minutes);
+        // if (mins > 59) {
+        //     relativeTime = relativeTimeInHours;
+        // }
+        return unixYears.toString() + " years and " +
+            unixdays.toString() + " days";   // relativeTime;
     }
 
     return (
@@ -96,8 +117,7 @@ export const Post = (props: Props) => {
                             </span>
                         </div>{" "}.{" "}
                         <span className="hover:underline text-sm sm:text-[15px]">
-                            <p>{calculatePostTime()}</p>
-                            {/* <Moment fromNow>{post?.timestamp?.toDate()}</Moment> */}
+                            <Moment fromNow>{post?.timestamp?.toDate()}</Moment>
                         </span>
                         {!postPage && (
                             <p className="text-[#d9d9d9] text-[15px] sm:text-base mt-0.5">
