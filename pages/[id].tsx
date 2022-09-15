@@ -12,6 +12,7 @@ import { Login } from "../components/Login";
 import { Provider } from "next-auth/providers";
 import { FaArrowLeft } from "react-icons/fa";
 import { Post } from "../components/Post";
+import { Comment } from "../components/Comment";
 
 export async function getServerSideProps(context: any) {
     const trendingResults = {};
