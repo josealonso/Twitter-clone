@@ -5,6 +5,9 @@ import { Sidebar } from '../components/Sidebar'
 import { getProviders, getSession, useSession } from "next-auth/react";
 import { Login } from '../components/Login';
 import { Provider } from 'next-auth/providers';
+import { Modal } from '../components/Modal';
+import { useRecoilState } from 'recoil';
+import { modalState } from '../atoms/modelAtom';
 
 /*
 In next.js all pages has to be exported default. 
@@ -18,6 +21,7 @@ interface Props {
 
 const Home = ({ trendingResults, followResults, providers }: Props) => {
   const { data: session } = useSession();
+  const [isOpen, setIsOpen] = useRecoilState(modalState);
 
   if (!session) return <Login providers={providers} />
 
@@ -31,9 +35,8 @@ const Home = ({ trendingResults, followResults, providers }: Props) => {
       <main className='bg-black min-h-screen flex max-w-[1500px] mx-auto'>
         <Sidebar />
         <Feed />
-        {session.user?.name}
         {/* Widgets */}
-        {/* Modal */}
+        {isOpen && <Modal/>}
       </main>
     </div>
   )
