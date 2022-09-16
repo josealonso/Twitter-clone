@@ -12,8 +12,6 @@ import Moment from "react-moment";
 import { useRecoilState } from "recoil";
 import { modalState, postIdState } from "../atoms/modelAtom";
 import { db } from "../configs/firebase";
-import { usePopperTooltip } from "react-popper-tooltip";
-import "react-popper-tooltip/dist/styles.css";
 import { CommentIcon } from "./CommentIcon";
 import { TrashIconComponent } from "./TrashIconComponent";
 import { LikesComponent } from "./LikesComponent";
@@ -37,14 +35,6 @@ export const Post = (props: PostProps) => {
     // const [liked, setLiked] = useState(false);
     const router = useRouter();
 
-    const {
-        getArrowProps,
-        getTooltipProps,
-        setTooltipRef,
-        setTriggerRef,
-        visible,
-    } = usePopperTooltip();
-
     useEffect(
         () =>
             onSnapshot(
@@ -56,32 +46,6 @@ export const Post = (props: PostProps) => {
             ),
         [db, id]
     );
-
-    // useEffect(
-    //     () =>
-    //         onSnapshot(collection(db, "posts", id, "likes"), (snapshot) =>
-    //             setLikes(snapshot.docs)
-    //         ),
-    //     [db, id]
-    // );
-
-    // useEffect(
-    //     () =>
-    //         setLiked(
-    //             likes.findIndex((like: Like) => like.id === session?.user?.id) !== -1
-    //         ),
-    //     [likes]
-    // );
-
-    // const likePost = async () => {
-    //     if (liked) {
-    //         await deleteDoc(doc(db, "posts", id, "likes", session?.user?.id));
-    //     } else {
-    //         await setDoc(doc(db, "posts", id, "likes", session?.user?.id), {
-    //             username: session?.user?.name,
-    //         });
-    //     }
-    // };
 
     return (
         <div className="p-3 flex cursor-pointer border-b border-gray-700"
@@ -164,7 +128,7 @@ export const Post = (props: PostProps) => {
 
                         <TrashIconComponent idUser={session?.user?.id} idPost={post?.id} />
 
-                        <LikesComponent session={session} id={id}  />
+                        <LikesComponent session={session} id={id} />
 
                     </div>
                 </div>

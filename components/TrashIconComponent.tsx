@@ -2,8 +2,6 @@ import { collection, deleteDoc, doc, orderBy, query } from "firebase/firestore";
 import router from "next/router";
 import { FaTrash as TrashIcon } from "react-icons/fa";
 import { HiSwitchHorizontal } from "react-icons/hi";
-import { usePopperTooltip } from "react-popper-tooltip";
-import "react-popper-tooltip/dist/styles.css";
 import { db } from "../configs/firebase";
 
 interface Props {
@@ -12,13 +10,6 @@ interface Props {
 }
 
 export const TrashIconComponent = ({ idUser, idPost }: Props) => {
-    const {
-        getArrowProps,
-        getTooltipProps,
-        setTooltipRef,
-        setTriggerRef,
-        visible,
-    } = usePopperTooltip();
 
     return (
         <div>
@@ -40,11 +31,11 @@ export const TrashIconComponent = ({ idUser, idPost }: Props) => {
                     }}
                 >
                     <div className="icon group-hover:bg-red-600/10">
-                        <div ref={setTriggerRef}>
+                        <div>
                             <TrashIcon className="h-5 group-hover:text-red-600" />
                         </div>
 
-                        {visible && (
+                        {/* {visible && (
                             <div
                                 ref={setTooltipRef}
                                 {...getTooltipProps({ className: 'tooltip-container' })}>
@@ -52,7 +43,7 @@ export const TrashIconComponent = ({ idUser, idPost }: Props) => {
                                     Delete
                                 </div>
                             </div>
-                        )}
+                        )} */}
                     </div>
                 </div>
             ) : (

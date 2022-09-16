@@ -49,12 +49,13 @@ export const Input = () => {
                 });
             });
         }
-    }
 
-    // setLoading(false);   // Error: Too many re-renders
-    // setInput("");
-    // setSelectedFile("");
-    // setShowEmojis(false);
+        setLoading(false);  
+        setInput("");
+        setSelectedFile("");
+        setShowEmojis(false);
+    };
+
 
     const addImageToPost = (event: React.ChangeEvent<HTMLInputElement>) => {
         const enteredFile = event.target.files ? event.target.files[0] : undefined;
