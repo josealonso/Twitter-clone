@@ -21,10 +21,10 @@ export const CommentIcon = (comments: string[]) => {
             {visible && (
                 <div
                     ref={setTooltipRef}
-                    {...getTooltipProps({ className: 'tooltip-container fontSize: 1rem' })}
+                    {...getTooltipProps({ className: 'tooltip-container' })}
                 >
                     <div {...getArrowProps({ className: 'tooltip-arrow' })} />
-                    Comment
+                    Reply
                 </div>
             )}
             {comments.length > 0 && (

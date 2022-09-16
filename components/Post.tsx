@@ -16,6 +16,7 @@ import { usePopperTooltip } from "react-popper-tooltip";
 import "react-popper-tooltip/dist/styles.css";
 import { CommentIcon } from "./CommentIcon";
 import { TrashIconComponent } from "./TrashIconComponent";
+import { LikesComponent } from "./LikesComponent";
 
 export type MyPost = PostProps;
 
@@ -26,18 +27,14 @@ interface PostProps {
     postPage?: MyPost
 }
 
-interface Like {
-    id: string | number
-}
-
 export const Post = (props: PostProps) => {
     const { id, post, postPage } = props;
     const { data: session } = useSession();
     const [isOpen, setIsOpen] = useRecoilState(modalState);
     const [postId, setPostId] = useRecoilState(postIdState);
     const [comments, setComments] = useState([]);
-    const [likes, setLikes] = useState([]);
-    const [liked, setLiked] = useState(false);
+    // const [likes, setLikes] = useState([]);
+    // const [liked, setLiked] = useState(false);
     const router = useRouter();
 
     const {
@@ -60,32 +57,32 @@ export const Post = (props: PostProps) => {
         [db, id]
     );
 
-    useEffect(
-        () =>
-            onSnapshot(collection(db, "posts", id, "likes"), (snapshot) =>
-                setLikes(snapshot.docs)
-            ),
-        [db, id]
-    );
+    // useEffect(
+    //     () =>
+    //         onSnapshot(collection(db, "posts", id, "likes"), (snapshot) =>
+    //             setLikes(snapshot.docs)
+    //         ),
+    //     [db, id]
+    // );
 
-    useEffect(
-        () =>
-            setLiked(
-                likes.findIndex((like: Like) => like.id === session?.user?.id) !== -1
-            ),
-        [likes]
-    );
+    // useEffect(
+    //     () =>
+    //         setLiked(
+    //             likes.findIndex((like: Like) => like.id === session?.user?.id) !== -1
+    //         ),
+    //     [likes]
+    // );
 
-    const likePost = async () => {
-        if (liked) {
-            await deleteDoc(doc(db, "posts", id, "likes", session?.user?.id));
-        } else {
-            await setDoc(doc(db, "posts", id, "likes", session?.user?.id), {
-                username: session?.user?.name,
-            });
-        }
-    };
- 
+    // const likePost = async () => {
+    //     if (liked) {
+    //         await deleteDoc(doc(db, "posts", id, "likes", session?.user?.id));
+    //     } else {
+    //         await setDoc(doc(db, "posts", id, "likes", session?.user?.id), {
+    //             username: session?.user?.name,
+    //         });
+    //     }
+    // };
+
     return (
         <div className="p-3 flex cursor-pointer border-b border-gray-700"
             onClick={() => router.push(`/${id}`)}
@@ -167,30 +164,7 @@ export const Post = (props: PostProps) => {
 
                         <TrashIconComponent idUser={session?.user?.id} idPost={post?.id} />
 
-                        <div
-                            className="flex items-center space-x-1 group"
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                likePost();
-                            }}
-                        >
-                            <div className="icon group-hover:bg-pink-600/10">
-                                {liked ? (
-                                    <HeartIconFilled className="h-5 text-pink-600" />
-                                ) : (
-                                    <HeartIcon className="h-5 group-hover:text-pink-600" />
-                                )}
-                            </div>
-                            {likes.length > 0 && (
-                                <span
-                                    className={`group-hover:text-pink-600 text-sm ${liked && "text-pink-600"
-                                        }`}
-                                >
-                                    {likes.length}
-                                </span>
-                            )}
-                        </div>
-
+                        <LikesComponent session={session} id={id}  />
 
                     </div>
                 </div>
