@@ -15,6 +15,7 @@ import { db } from "../configs/firebase";
 import { usePopperTooltip } from "react-popper-tooltip";
 import "react-popper-tooltip/dist/styles.css";
 import { CommentIcon } from "./CommentIcon";
+import { TrashIconComponent } from "./TrashIconComponent";
 
 export type MyPost = PostProps;
 
@@ -84,32 +85,7 @@ export const Post = (props: PostProps) => {
             });
         }
     };
-
-    function calculatePostTime(postTimeStamp: string): string {
-        console.log("Published -----", postTimeStamp);
-        let date = new Date(postTimeStamp);
-        let hours = date.getHours();
-        let minutes = date.getMinutes();
-
-        let output = ("0" + hours).slice(-2) + ':' + ("0" + minutes).slice(-2);
-        // console.log("PublishedAAAAAA -----", output);
-        let unixSeconds = parseInt(postTimeStamp.seconds);
-        let unixYears = unixSeconds / (365 * 24 * 60 * 60);
-        let unixdays = unixSeconds % (365 * 24 * 60 * 60);
-        // let secondsTilNow = Mome
-        console.log("PublishedAAAAAA -----", unixdays);
-        // let relativeTimeInHours = moment().startOf('day').fromNow();
-        // let relativeTimeInMinutes = moment().startOf('hour').fromNow();
-        // let relativeTime = relativeTimeInMinutes;
-        // let minutes = relativeTimeInMinutes.substring(0, 2);
-        // let mins = parseInt(minutes);
-        // if (mins > 59) {
-        //     relativeTime = relativeTimeInHours;
-        // }
-        return unixYears.toString() + " years and " +
-            unixdays.toString() + " days";   // relativeTime;
-    }
-
+ 
     return (
         <div className="p-3 flex cursor-pointer border-b border-gray-700"
             onClick={() => router.push(`/${id}`)}
@@ -189,28 +165,7 @@ export const Post = (props: PostProps) => {
 
                         <CommentIcon comments={comments} />
 
-                        {/* End of comment Icon */}
-
-                        {session?.user?.id === post?.id ? (
-                            <div
-                                className="flex items-center space-x-1 group"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    deleteDoc(doc(db, "posts", id));
-                                    router.push("/");
-                                }}
-                            >
-                                <div className="icon group-hover:bg-red-600/10">
-                                    <TrashIcon className="h-5 group-hover:text-red-600" />
-                                </div>
-                            </div>
-                        ) : (
-                            <div className="flex items-center space-x-1 group">
-                                <div className="icon group-hover:bg-green-500/10">
-                                    <HiSwitchHorizontal className="h-5 group-hover:text-green-500" />
-                                </div>
-                            </div>
-                        )}
+                        <TrashIconComponent idUser={session?.user?.id} idPost={post?.id} />
 
                         <div
                             className="flex items-center space-x-1 group"
