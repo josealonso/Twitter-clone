@@ -1,33 +1,30 @@
-import { collection, deleteDoc, doc, orderBy, query } from "firebase/firestore";
+import { deleteDoc, doc } from "firebase/firestore";
+import { Session } from "next-auth";
 import router from "next/router";
 import { FaTrash as TrashIcon } from "react-icons/fa";
 import { HiSwitchHorizontal } from "react-icons/hi";
 import { db } from "../configs/firebase";
+import { MyPost } from "./Post";
 
-interface Props {
-    idUser: string
-    idPost: string
+interface DeleteComponentProps {
+    session: Session | null;
+    post: MyPost
+    id: number
 }
 
-export const TrashIconComponent = ({ idUser, idPost }: Props) => {
+export const TrashIconComponent = ({ session, id, post }: DeleteComponentProps) => {
 
     return (
         <div>
-            {idUser === idPost ? (
+            {session?.user?.id === post.id ? (
                 <div
                     className="flex items-center space-x-1 group"
                     onClick={(e) => {
-                        console.log("TRASHIcon - idUser: ", idUser);
-                        console.log("TRASHIcon - idPost: ", idPost);
+                        console.log("TRASHIcon - idUser: ", session?.user.id);
+                        console.log("TRASHIcon - idPost: ", post.id);
                         e.stopPropagation();
-                        console.log("TRASHIcon - posts: ",
-                            query(
-                                collection(db, "posts", idPost, "comments"),
-                                orderBy("timestamp", "desc")
-                            ),
-                        );
-                        deleteDoc(doc(db, "posts", idPost));
-                        console.log("Deleted: ", idPost);
+                        deleteDoc(doc(db, "posts", id));
+                        console.log("Deleted: ", id);
                         router.push("/");
                     }}
                 >

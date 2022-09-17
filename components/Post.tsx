@@ -126,7 +126,7 @@ export const Post = (props: PostProps) => {
 
                         <CommentIcon comments={comments} />
 
-                        <TrashIconComponent idUser={session?.user?.id} idPost={post?.id} />
+                        <TrashIconComponent session={session} id={id} post={post} />
 
                         <LikesComponent session={session} id={id} />
 
