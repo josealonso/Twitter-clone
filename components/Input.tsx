@@ -19,7 +19,8 @@ import { useSession } from "next-auth/react";
 
 export const Input = () => {
     const [input, setInput] = useState("");
-    const [selectedFile, setSelectedFile] = useState("");
+    // const [selectedFile, setSelectedFile] = useState<File["name"]>("");
+    const [selectedFile, setSelectedFile] = useState(null);
     const [showEmojis, setShowEmojis] = useState(false);
     const [loading, setLoading] = useState(false);
     const filePickerRef = useRef<HTMLInputElement>(null);
@@ -50,24 +51,26 @@ export const Input = () => {
             });
         }
 
-        setLoading(false);  
+        setLoading(false);
         setInput("");
-        setSelectedFile("");
+        setSelectedFile(null);
         setShowEmojis(false);
     };
 
 
-    const addImageToPost = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const enteredFile = event.target.files ? event.target.files[0] : undefined;
+    // const addImageToPost = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const addImageToPost = (event) => {
+        const enteredFile = event.target.files[0];
         const fileReader = new FileReader();
         if (enteredFile) {
             fileReader.readAsDataURL(enteredFile);  // Blob type
         }
 
-        fileReader.onload = (event) => {
-            let contents = event?.target?.result;
-            // setSelectedFile(contents as string);
-            // setSelectedFile(event?.target?.result);
+        fileReader.onload = (readerEvent) => {
+            let contents = readerEvent.target?.result;
+            setSelectedFile(contents);
+            // console.log("AAAAAAAAAAA - Inside addImageToPost ", event.currentTarget.files[0]);
+            // setSelectedFile(event.currentTarget.files[0]);
         };
     };
 
@@ -106,7 +109,8 @@ export const Input = () => {
                         bg-opacity-75 rounded-full flex items-center 
                         justify-center top-1 left-1 
                         cursor-pointer"
-                                onClick={() => setSelectedFile("")}>
+                                onClick={() => setSelectedFile(null)}
+                            >
                                 <XIcon className="text-white h-5" />
                             </div>
                             <img
@@ -175,3 +179,4 @@ export const Input = () => {
 
     );
 }
+

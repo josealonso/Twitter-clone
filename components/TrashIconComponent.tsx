@@ -27,6 +27,7 @@ export const TrashIconComponent = ({ idUser, idPost }: Props) => {
                             ),
                         );
                         deleteDoc(doc(db, "posts", idPost));
+                        console.log("Deleted: ", idPost);
                         router.push("/");
                     }}
                 >
@@ -35,15 +36,6 @@ export const TrashIconComponent = ({ idUser, idPost }: Props) => {
                             <TrashIcon className="h-5 group-hover:text-red-600" />
                         </div>
 
-                        {/* {visible && (
-                            <div
-                                ref={setTooltipRef}
-                                {...getTooltipProps({ className: 'tooltip-container' })}>
-                                <div {...getArrowProps({ className: 'tooltip' })}>
-                                    Delete
-                                </div>
-                            </div>
-                        )} */}
                     </div>
                 </div>
             ) : (
