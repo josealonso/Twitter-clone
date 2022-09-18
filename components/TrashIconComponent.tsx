@@ -5,6 +5,8 @@ import { FaTrash as TrashIcon } from "react-icons/fa";
 import { HiSwitchHorizontal } from "react-icons/hi";
 import { db } from "../configs/firebase";
 import { MyPost } from "./Post";
+import { DeleteConfirmation } from "./DeleteConfirmation";
+import { useState } from "react";
 
 interface DeleteComponentProps {
     session: Session | null;
@@ -13,6 +15,16 @@ interface DeleteComponentProps {
 }
 
 export const TrashIconComponent = ({ session, id, post }: DeleteComponentProps) => {
+
+    const [isAlertOpen, setIsAlertOpen] = useState(false);
+
+    const openDialog = () => {
+        setIsAlertOpen(true);
+    }
+
+    const closeDialog = () => {
+        setIsAlertOpen(false);
+    }
 
     return (
         <div>
@@ -23,16 +35,20 @@ export const TrashIconComponent = ({ session, id, post }: DeleteComponentProps) 
                         console.log("TRASHIcon - idUser: ", session?.user.id);
                         console.log("TRASHIcon - idPost: ", post.id);
                         e.stopPropagation();
-                        deleteDoc(doc(db, "posts", id));
-                        console.log("Deleted: ", id);
-                        router.push("/");
+                        openDialog();
+                        if (1 === 2) {  // (willBeDeleted) {
+                            // deleteDoc(doc(db, "posts", id));
+                            console.log("Deleted: ", id);
+                            router.push("/");
+                        }
                     }}
                 >
                     <div className="tw-icon group-hover:tw-bg-red-600/10">
                         <div>
                             <TrashIcon className="h-5 group-hover:text-red-600" />
+                            <DeleteConfirmation isDialogOpened={isAlertOpen}
+                                handleCloseDialog={closeDialog} id={id} />
                         </div>
-
                     </div>
                 </div>
             ) : (
@@ -41,7 +57,8 @@ export const TrashIconComponent = ({ session, id, post }: DeleteComponentProps) 
                         <HiSwitchHorizontal className="tw-h-5 group-hover:tw-text-green-500" />
                     </div>
                 </div>
-            )}
-        </div>
+            )
+            }
+        </div >
     )
 };
