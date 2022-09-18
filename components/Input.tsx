@@ -136,15 +136,15 @@ export const Input = () => {
                                 />
                             </div>
 
-                            <div className="icon tw-rotate-90">
+                            <div className="tw-icon tw-rotate-90">
                                 <ChartBarIcon className="tw-text-[#1d9bf0] tw-h-[22px]" />
                             </div>
 
-                            <div className="icon" onClick={() => setShowEmojis(!showEmojis)}>
+                            <div className="tw-icon" onClick={() => setShowEmojis(!showEmojis)}>
                                 <EmojiHappyIcon className="tw-text-[#1d9bf0] tw-h-[22px]" />
                             </div>
 
-                            <div className="icon">
+                            <div className="tw-icon">
                                 <CalendarIcon className="tw-text-[#1d9bf0] tw-h-[22px]" />
                             </div>
 
