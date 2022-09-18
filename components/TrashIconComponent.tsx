@@ -1,9 +1,7 @@
-import { deleteDoc, doc } from "firebase/firestore";
 import { Session } from "next-auth";
 import router from "next/router";
 import { FaTrash as TrashIcon } from "react-icons/fa";
 import { HiSwitchHorizontal } from "react-icons/hi";
-import { db } from "../configs/firebase";
 import { MyPost } from "./Post";
 import { DeleteConfirmation } from "./DeleteConfirmation";
 import { useState } from "react";
@@ -36,11 +34,7 @@ export const TrashIconComponent = ({ session, id, post }: DeleteComponentProps) 
                         console.log("TRASHIcon - idPost: ", post.id);
                         e.stopPropagation();
                         openDialog();
-                        if (1 === 2) {  // (willBeDeleted) {
-                            // deleteDoc(doc(db, "posts", id));
-                            console.log("Deleted: ", id);
-                            router.push("/");
-                        }
+                        router.push("/");
                     }}
                 >
                     <div className="tw-icon group-hover:tw-bg-red-600/10">

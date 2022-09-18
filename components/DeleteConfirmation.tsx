@@ -6,7 +6,6 @@ import {
     AlertDialogHeader,
     AlertDialogContent,
     AlertDialogOverlay,
-    useDisclosure,
     Button,
 } from '@chakra-ui/react';
 import { deleteDoc, doc } from 'firebase/firestore';
@@ -14,8 +13,7 @@ import { db } from '../configs/firebase';
 
 interface Props {
     isDialogOpened: boolean;
-    handleCloseDialog: Function; // { () => ()}
-    // willBeDeleted: boolean
+    handleCloseDialog: Function;
     id: number;
 }
 
@@ -28,20 +26,11 @@ export function DeleteConfirmation({ isDialogOpened, handleCloseDialog, id }: Pr
     const onDelete = () => {
         console.log("Post has been DELETED");
         handleCloseDialog();
-        // willBeDeleted = true;
         deleteDoc(doc(db, "posts", id));
-        console.log("Post has been CLOSED");
-
-        // isDialogOpened=false;
-        // onClose();
     }
 
     return (
         <>
-
-            {/* <Button colorScheme='red' onClick={onOpen}>
-                Delete Post
-            </Button> */}
 
             <AlertDialog
                 // isOpen={isOpen}
@@ -60,7 +49,6 @@ export function DeleteConfirmation({ isDialogOpened, handleCloseDialog, id }: Pr
                         </AlertDialogBody>
 
                         <AlertDialogFooter>
-                            {/* <Button ref={cancelRef} onClick={onClose}> */}
                             <Button ref={cancelRef} onClick={handleCloseDialog}>
                                 Cancel
                             </Button>
