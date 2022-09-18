@@ -82,7 +82,7 @@ export default function PostPage({ trendingResults, followResults, providers }: 
     if (!session) return <Login providers={providers} />
 
     return (
-        <div className="">
+        <div>
             <Head>
                 <title>
                     {post?.username} on Twitter: "{post?.text}"
@@ -109,8 +109,11 @@ export default function PostPage({ trendingResults, followResults, providers }: 
                     {comments?.length > 0 && (
                         <div className="tw-pb-72">
                             {comments?.map(comment => {
-                                <Comment key={comment.id} id={comment.id}
-                                    comment={comment.data()} />
+                                <Comment
+                                    key={comment.id}
+                                    id={comment.id}
+                                    comment={comment.data()}
+                                />
                             })}
 
                         </div>

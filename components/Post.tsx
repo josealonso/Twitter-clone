@@ -2,7 +2,7 @@ import { collection, DocumentData, onSnapshot, orderBy, query, setDoc } from "fi
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { HiDotsHorizontal, HiSwitchHorizontal } from "react-icons/hi";
+import { HiDotsHorizontal } from "react-icons/hi";
 import Moment from "react-moment";
 import { useRecoilState } from "recoil";
 import { modalState, postIdState } from "../atoms/modelAtom";
@@ -16,15 +16,15 @@ export type MyPost = PostProps;
 interface PostProps {
     // key: number
     id: number | undefined
-    post: DocumentData | undefined
+    post: DocumentData
     postPage?: MyPost
 }
 
 export const Post = (props: PostProps) => {
     const { id, post, postPage } = props;
     const { data: session } = useSession();
-    const [isOpen, setIsOpen] = useRecoilState(modalState);
-    const [postId, setPostId] = useRecoilState(postIdState);
+    const [isOpen, setIsOpen] = useRecoilState(modalState);  // Recoil is a state management tool
+    const [postId, setPostId] = useRecoilState(postIdState); // Recoil is a state management tool
     const [comments, setComments] = useState([]);
     const router = useRouter();
 
@@ -108,7 +108,7 @@ export const Post = (props: PostProps) => {
                     {/* All the icons for each post: comment, delete, favorite, share and  */}
                     {/* Comment Icon */}
                     <div
-                        className="tw-flex tw-items-center tw-space-x-1 tw-group"
+                        className="tw-flex tw-items-center tw-space-x-7 tw-ml-20 tw-group"
                         onClick={(e) => {
                             e.stopPropagation();
                             setPostId(id?.toString());
@@ -118,12 +118,15 @@ export const Post = (props: PostProps) => {
                     >
 
 
+                        {!postPage && (
+                            <>
+                                <CommentIcon comments={comments} />
 
-                        <CommentIcon comments={comments} />
+                                <TrashIconComponent session={session} id={id} post={post} />
 
-                        <TrashIconComponent session={session} id={id} post={post} />
-
-                        <LikesComponent session={session} id={id} />
+                                <LikesComponent session={session} id={id} />
+                            </>
+                        )}
 
                     </div>
                 </div>
