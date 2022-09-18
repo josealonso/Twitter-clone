@@ -8,16 +8,16 @@ interface Props {
 
 export const Login = (props: Props) => {
     return (
-        <div className="flex flex-col items-center gap-y-20 pt-40">
+        <div className="tw-flex tw-flex-col tw-items-center tw-gap-y-20 tw-pt-40">
             <div>
-                <button className="relative inline-flex items-center justify-start px-6 py-3 overflow-hidden font-medium transition-all
-        bg-white rounded hover:bg-white group"
+                <button className="tw-relative tw-inline-flex tw-items-center tw-justify-start tw-px-6 tw-py-3 tw-overflow-hidden tw-font-medium tw-transition-all
+        tw-bg-white tw-rounded hover:tw-bg-white tw-group"
                     // onClick={() => signIn(provider.id, {callbackUrl: "/"})}
                     onClick={() => signIn({ callbackUrl: "/" })}
                 >
                     <span className="abanico-transition-span-one"></span>
                     <span className="abanico-transition-span-two">
-                        Sign in with Google  {/* {props.providers[0].name} */}
+                        Sign in {/* {props.providers[0].name} */}
                     </span>
                 </button>
             </div>
@@ -29,7 +29,7 @@ export const Login = (props: Props) => {
                 objectFit="contain"
             />
             <div>
-                {/* {Object.values([props.providers]).map(provider => { */}
+                {/* {Object.values([props.providers]).map(provider => { 
                 {Object.values(["Google", "github"]).map(provider => {
                     <div>
                         <button className="relative inline-flex items-center justify-start px-6 py-3 overflow-hidden font-medium transition-all bg-white rounded hover:bg-white group">
@@ -39,7 +39,7 @@ export const Login = (props: Props) => {
                             </span>
                         </button>
                     </div>
-                })}
+                })} */}
             </div>
         </div>
     );

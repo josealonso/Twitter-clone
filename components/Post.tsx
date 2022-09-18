@@ -1,12 +1,7 @@
-import { collection, deleteDoc, doc, DocumentData, onSnapshot, orderBy, query, setDoc } from "firebase/firestore";
+import { collection, DocumentData, onSnapshot, orderBy, query, setDoc } from "firebase/firestore";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import {
-    BsChatRightText as ChatIcon,
-    BsSuitHeart as HeartIcon, BsSuitHeartFill as HeartIconFilled
-} from "react-icons/bs";
-import { FaTrash as TrashIcon } from "react-icons/fa";
 import { HiDotsHorizontal, HiSwitchHorizontal } from "react-icons/hi";
 import Moment from "react-moment";
 import { useRecoilState } from "recoil";
@@ -31,8 +26,6 @@ export const Post = (props: PostProps) => {
     const [isOpen, setIsOpen] = useRecoilState(modalState);
     const [postId, setPostId] = useRecoilState(postIdState);
     const [comments, setComments] = useState([]);
-    // const [likes, setLikes] = useState([]);
-    // const [liked, setLiked] = useState(false);
     const router = useRouter();
 
     useEffect(
@@ -48,30 +41,30 @@ export const Post = (props: PostProps) => {
     );
 
     return (
-        <div className="p-3 flex cursor-pointer border-b border-gray-700"
+        <div className="tw-p-3 tw-flex tw-cursor-pointer tw-border-b tw-border-gray-700"
             onClick={() => router.push(`/${id}`)}
         >
             {!postPage && (
                 <img
                     src={post?.userImg}
                     alt="Profile Pic"
-                    className="h-11 w-11 rounded-full mr-4"
+                    className="tw-h-11 tw-w-11 tw-rounded-full tw-mr-4"
                 />
             )}
-            <div className="flex flex-col space-y-2 w-full">
-                <div className={`flex ${!postPage && "justify-between"}`}>
+            <div className="tw-flex tw-flex-col tw-space-y-2 tw-w-full">
+                <div className={`tw-flex ${!postPage && "tw-justify-between"}`}>
                     {postPage && (
                         <img
                             src={post?.userImg}
                             alt="Profile Pic"
-                            className="h-11 w-11 rounded-full mr-4"
+                            className="tw-h-11 tw-w-11 tw-rounded-full tw-mr-4"
                         />
                     )}
-                    <div className="text-[#6e767d]">
-                        <div className="inline-block group">
+                    <div className="tw-text-[#6e767d]">
+                        <div className="tw-inline-block group">
                             <h4
-                                className={`font-bold text-[15px] sm:text-base
-                               text-[#d9d9d9] hover:underline ${!postPage && "inline-block"
+                                className={`tw-font-bold tw-text-[15px] sm:tw-text-base
+                               tw-text-[#d9d9d9] hover:tw-underline ${!postPage && "tw-inline-block"
                                     }`}
                             >
                                 {post?.username}
@@ -81,22 +74,22 @@ export const Post = (props: PostProps) => {
                                 @{post?.tag}
                             </span>
                         </div>{" "}.{" "}
-                        <span className="hover:underline text-sm sm:text-[15px]">
+                        <span className="hover:tw-underline tw-text-sm sm:tw-text-[15px]">
                             <Moment fromNow>{post?.timestamp?.toDate()}</Moment>
                         </span>
                         {!postPage && (
-                            <p className="text-[#d9d9d9] text-[15px] sm:text-base mt-0.5">
+                            <p className="tw-text-[#d9d9d9] tw-text-[15px] sm:tw-text-base mt-0.5">
                                 {post?.text}
                             </p>
                         )}
                     </div>
-                    <div className="icon group flex-shrink-0 ml-auto">
-                        <HiDotsHorizontal className="h-5 text-[#6e767d]
-                        group-hover:text-[#1d9bf0]" />
+                    <div className="tw-icon tw-group tw-flex-shrink-0 tw-ml-auto">
+                        <HiDotsHorizontal className="tw-h-5 tw-text-[#6e767d]
+                        group-hover:tw-text-[#1d9bf0]" />
                     </div>
                 </div>
                 {postPage && (
-                    <p className="text-[#d9d9d9] text-[15px] sm:text-base mt-0.5">
+                    <p className="tw-text-[#d9d9d9] tw-text-[15px] sm:tw-text-base tw-mt-0.5">
                         {post?.text}
                     </p>
                 )}
@@ -105,17 +98,17 @@ export const Post = (props: PostProps) => {
                 <img
                     src={post?.image}
                     alt=""
-                    className="rounded-2xl max-h-[700px] object-cover mr-2"
+                    className="tw-rounded-2xl tw-max-h-[700px] tw-object-cover tw-mr-2"
                 />
                 <div
-                    className={`text-[#6e767d] flex justify-between w-10/12 ${postPage && "mx-auto"
+                    className={`tw-text-[#6e767d] tw-flex tw-justify-between tw-w-10/12 ${postPage && "tw-mx-auto"
                         }`}
                 >
 
                     {/* All the icons for each post: comment, delete, favorite, share and  */}
                     {/* Comment Icon */}
                     <div
-                        className="flex items-center space-x-1 group"
+                        className="tw-flex tw-items-center tw-space-x-1 tw-group"
                         onClick={(e) => {
                             e.stopPropagation();
                             setPostId(id?.toString());
@@ -123,6 +116,8 @@ export const Post = (props: PostProps) => {
                             console.log("You just clicked the Comment icon !!");
                         }}
                     >
+
+
 
                         <CommentIcon comments={comments} />
 

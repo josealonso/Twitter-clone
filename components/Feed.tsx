@@ -20,19 +20,19 @@ export const Feed = () => {
     );
 
     return (
-        <div className="text-white flex-grow border-l border-r 
-        border-gray-700 max-w-2xl sm:ml-[73px] xl:ml-[370px]">
-            <div className="text-[#d9d9d9] flex items-center
-            sm:justify-between py-2 px-3 sticky top-0 z-50 bg-black 
-            border-b border-gray-700">
-                <h2 className="text-lg sm:text-xl font-bold">Home</h2>
-                <div className="hoverAnimation w-9 h-9 flex items-center
-                justify-center xl:px-0 ml-auto">
-                    <SparklesIcon className="h-5 text-white" />
+        <div className="tw-text-white tw-flex-grow tw-border-l tw-border-r 
+        tw-border-gray-700 tw-max-w-2xl sm:tw-ml-[73px] xl:tw-ml-[370px]">
+            <div className="tw-text-[#d9d9d9] tw-flex tw-items-center
+            sm:tw-justify-between tw-py-2 tw-px-3 tw-sticky tw-top-0 tw-z-50 tw-bg-black 
+            tw-border-b tw-border-gray-700">
+                <h2 className="tw-text-lg sm:tw-text-xl tw-font-bold">Home</h2>
+                <div className="hoverAnimation tw-w-9 tw-h-9 tw-flex tw-items-center
+                tw-justify-center xl:tw-px-0 tw-ml-auto">
+                    <SparklesIcon className="tw-h-5 tw-text-white" />
                 </div>
             </div>
             <Input />
-            <div className="pb-72">
+            <div className="tw-pb-72">
                 {posts.map((post: MyPost) => (
                     <Post key={post.id} id={post.id} post={post.data()} />
                 ))}

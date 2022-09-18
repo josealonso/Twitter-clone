@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  prefix: "tw-",
   style: {
     postcss: {
       plugins: [require("tailwindcss"), require("autoprefixer")],

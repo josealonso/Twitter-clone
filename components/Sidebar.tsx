@@ -14,13 +14,13 @@ export const Sidebar = () => {
     const { data: session } = useSession();
 
     return (
-        <div className="hidden sm:flex flex-col items-center
-         xl:items-start xl:w-[340px] p-2 fixed h-full">
-            <div className="flex items-center justify-center w-14 h-14
-            hoverAnimation p-0 xl:ml-24">
+        <div className="tw-hidden sm:tw-flex tw-flex-col tw-items-center
+         xl:tw-items-start xl:tw-w-[340px] tw-p-2 tw-fixed tw-h-full">
+            <div className="tw-flex tw-items-center tw-justify-center tw-w-14 tw-h-14
+            hoverAnimation tw-p-0 xl:tw-ml-24">
                 <Image src="https://rb.gy/ogau5a" width={30} height={30} />
             </div>
-            <div className="space-y-2.5 mt-4 mb-2.5 xl:ml-24">
+            <div className="tw-space-y-2.5 tw-mt-4 tw-mb-2.5 xl:tw-ml-24">
                 <SidebarLink text="Home" icon={HomeIcon} active />
                 <SidebarLink text="Explore" icon={HashtagIcon} />
                 <SidebarLink text="Notifications" icon={BellIcon} />
@@ -30,24 +30,24 @@ export const Sidebar = () => {
                 <SidebarLink text="Profile" icon={UserIcon} />
                 <SidebarLink text="More" icon={DotsCircleHorizontalIcon} />
             </div>
-            <button className="hidden xl:inline ml-auto bg-[#155682] text-white
-            rounded-full w-56 h-[52px] text-lg font-bold shadow-md hover:bg-[#1a8cd8]">
+            <button className="tw-hidden xl:tw-inline tw-ml-auto tw-bg-[#155682] tw-text-white
+            tw-rounded-full tw-w-56 tw-h-[52px] tw-text-lg tw-font-bold tw-shadow-md hover:tw-bg-[#1a8cd8]">
                 Tweet
             </button>
-            <div className="text-[#d9d9d9] flex items-center
-            justify-center hoverAnimation xl:ml-auto xl:-mr-5 mt-auto"
+            <div className="tw-text-[#d9d9d9] tw-flex tw-items-center
+            tw-justify-center hoverAnimation xl:tw-ml-auto xl:tw--mr-5 tw-mt-auto"
                 onClick={signOut}
             >
                 <img
                     src={session?.user?.image}
                     alt={session?.user?.name}
-                    className="h-10 w-10 rounded-full xl:mr-2.5"
+                    className="tw-h-10 tw-w-10 tw-rounded-full xl:tw-mr-2.5"
                 />
-                <div className="hidden xl:inline leading-5">
-                    <h4 className="font-bold">{session?.user?.name}</h4>
-                    <p className="text-[#6e767d]">@{session?.user?.tag}</p>
+                <div className="tw-hidden xl:tw-inline tw-leading-5">
+                    <h4 className="tw-font-bold">{session?.user?.name}</h4>
+                    <p className="tw-text-[#6e767d]">@{session?.user?.tag}</p>
                 </div>
-                <HorizontalDots className="h-5 hidden xl:inline ml-10"
+                <HorizontalDots className="tw-h-5 tw-hidden tw-xl:inline tw-ml-10"
                 />
             </div>
         </div>

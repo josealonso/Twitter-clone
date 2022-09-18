@@ -5,12 +5,12 @@ import {
 export const CommentIcon = (comments: string[]) => {
 
     return (
-        <div className="icon group-hover:bg-[#1d9bf0] group-hover:bg-opacity-10">
+        <div className="tw-icon group-hover:tw-bg-[#1d9bf0] group-hover:tw-bg-opacity-10">
             <div>
-                <ChatIcon className="h-5 group-hover:text-[#1d9bf0]" />
+                <ChatIcon className="tw-h-5 group-hover:tw-text-[#1d9bf0]" />
             </div>
             {comments.length > 0 && (
-                <span className="group-hover:text-[#1d9bf0] text-sm">
+                <span className="group-hover:tw-text-[#1d9bf0] tw-text-sm">
                     {comments.length}
                 </span>
             )}

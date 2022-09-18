@@ -32,7 +32,7 @@ const Home = ({ trendingResults, followResults, providers }: Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className='bg-black min-h-screen flex max-w-[1500px] mx-auto'>
+      <main className='tw-bg-black tw-min-h-screen tw-flex tw-max-w-[1500px] tw-mx-auto'>
         <Sidebar />
         <Feed />
         {/* Widgets */}

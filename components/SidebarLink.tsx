@@ -15,13 +15,13 @@ export const SidebarLink = (props: SidebarLinkProps) => {
     const { icon, text, active } = props;
     return (
         <div
-            className={`text-[#d9d9d9] flex items-center justify-center
-        xl:justify-start text-xl space-x-3 hoverAnimation 
-        ${active && "font-bold"
+            className={`tw-text-[#d9d9d9] tw-flex tw-items-center tw-justify-center
+        xl:tw-justify-start tw-text-xl tw-space-x-3 hoverAnimation 
+        ${active && "tw-font-bold"
                 }`}> 
             <span className="h-7">{React.createElement(icon)}</span>
             
-            <span className="hidden xl:inline">{text}</span>
+            <span className="tw-hidden tw-xl:inline">{text}</span>
         </div>
     )
 }

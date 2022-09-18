@@ -19,7 +19,6 @@ import { useSession } from "next-auth/react";
 
 export const Input = () => {
     const [input, setInput] = useState("");
-    // const [selectedFile, setSelectedFile] = useState<File["name"]>("");
     const [selectedFile, setSelectedFile] = useState(null);
     const [showEmojis, setShowEmojis] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -84,51 +83,51 @@ export const Input = () => {
 
     return (
         <div
-            className={`border-b border-gray-700 p-3 flex gap-x-3
-        overflow-y-scroll scrollbar-hide`} >
+            className={`tw-border-b tw-border-gray-700 tw-p-3 tw-flex tw-gap-x-3
+            tw-overflow-y-scroll tw-scrollbar-hide`} >
             <img
                 src={session?.user?.image}
                 alt=""
-                className="h-11 w-11 rounded-full cursor-pointer"
+                className="tw-h-11 tw-w-11 tw-rounded-full tw-cursor-pointer"
             />
-            <div className="w-full divide-y divide-gray-700">
+            <div className="tw-w-full tw-divide-y tw-divide-gray-700">
                 <div className={`${selectedFile && "pb-7"} ${input && "space-y-2.5"}`}>
                     <textarea
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
                         rows={2}
                         placeholder="What's happening?"
-                        className="bg-transparent outline-none text-[#d9d9d9]
-                        text-lg placeholder-gray-500 tracking-wide w-full
-                        min-h[50px]"
+                        className="tw-bg-transparent tw-outline-none tw-text-[#d9d9d9]
+                        tw-text-lg tw-placeholder-gray-500 tw-tracking-wide tw-w-full
+                        tw-min-h[50px]"
                     />
 
                     {selectedFile && (
-                        <div className="relative">
-                            <div className="absolute w-8 h-8 bg-[#15181c] hover:bg-[#272c26]
-                        bg-opacity-75 rounded-full flex items-center 
-                        justify-center top-1 left-1 
-                        cursor-pointer"
+                        <div className="tw-relative">
+                            <div className="tw-absolute tw-w-8 tw-h-8 tw-bg-[#15181c] hover:tw-bg-[#272c26]
+                        tw-bg-opacity-75 tw-rounded-full tw-flex tw-items-center 
+                        tw-justify-center tw-top-1 tw-left-1 
+                        tw-cursor-pointer"
                                 onClick={() => setSelectedFile(null)}
                             >
-                                <XIcon className="text-white h-5" />
+                                <XIcon className="tw-text-white tw-h-5" />
                             </div>
                             <img
                                 src="{selectedFile}"
                                 alt=""
-                                className="rounded-2xl max-h-80 object-contain"
+                                className="tw-rounded-2xl tw-max-h-80 tw-object-contain"
                             />
                         </div>
                     )}
                 </div>
                 {!loading && (
-                    <div className="flex items-center justify-between pt-2.5">
-                        <div className="flex items-center">
+                    <div className="tw-flex tw-items-center tw-justify-between tw-pt-2.5">
+                        <div className="tw-flex tw-items-center">
                             <div
-                                className="icon"
+                                className="tw-icon"
                                 onClick={() => filePickerRef.current?.click()}
                             >
-                                <PhotographIcon className="text-[#1d9bf0] h-[22px]" />
+                                <PhotographIcon className="tw-text-[#1d9bf0] tw-h-[22px]" />
                                 <input
                                     type="file"
                                     ref={filePickerRef}
@@ -137,16 +136,16 @@ export const Input = () => {
                                 />
                             </div>
 
-                            <div className="icon rotate-90">
-                                <ChartBarIcon className="text-[#1d9bf0] h-[22px]" />
+                            <div className="icon tw-rotate-90">
+                                <ChartBarIcon className="tw-text-[#1d9bf0] tw-h-[22px]" />
                             </div>
 
                             <div className="icon" onClick={() => setShowEmojis(!showEmojis)}>
-                                <EmojiHappyIcon className="text-[#1d9bf0] h-[22px]" />
+                                <EmojiHappyIcon className="tw-text-[#1d9bf0] tw-h-[22px]" />
                             </div>
 
                             <div className="icon">
-                                <CalendarIcon className="text-[#1d9bf0] h-[22px]" />
+                                <CalendarIcon className="tw-text-[#1d9bf0] tw-h-[22px]" />
                             </div>
 
                             <div
@@ -166,7 +165,7 @@ export const Input = () => {
                             </div>
                         </div>
                         <button
-                            className="bg-[#1d9bf0] text-white rounded-full px-4 py-1.5 font-bold shadow-md hover:bg-[#1a8cd8] disabled:hover:bg-[#1d9bf0] disabled:opacity-50 disabled:cursor-default"
+                            className="tw-bg-[#1d9bf0] tw-text-white tw-rounded-full tw-px-4 tw-py-1.5 tw-font-bold tw-shadow-md hover:tw-bg-[#1a8cd8] disabled:hover:tw-bg-[#1d9bf0] disabled:tw-opacity-50 disabled:tw-cursor-default"
                             disabled={!input && !selectedFile}
                             onClick={sendPost}
                         >

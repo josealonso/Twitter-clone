@@ -2,65 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
-.tooltip {
-    /* visibility: hidden; */
-    visibility: visible;
-    z-index: 1;
-    opacity: .40;
-
-    width: 100%;
-    padding: 0px 20px;
-
-    background: #333;
-    color: #E086D3;
-
-    position: absolute;
-    top: -140%;
-    left: -25%;
-
-    border-radius: 9px;
-    font: 16px;
-
-    transform: translateY(9px);
-    transition: all 0.3s ease-in-out;
-
-    box-shadow: 0 0 3px rgba(56, 54, 54, 0.86);
-}
-
-.con-tooltip:hover { 
-    /* .tooltip { */
-    visibility: visible;
-    transform: translateY(-10px);
-    opacity: 1;
-    transition: .3s linear;
-    animation: odsoky 1s ease-in-out infinite alternate;
-}
 
 @layer base {
     body {
-        @apply bg-black;
+        @apply tw-bg-black;
     }
 }
 
 @layer components {
     .hoverAnimation {
-        @apply hover:bg-[#d9d9d9] hover:bg-opacity-10 rounded-full cursor-pointer w-[52px] h-[52px] xl:w-auto xl:h-auto xl:py-3 xl:px-4 transition duration-200 ease-out;
+        @apply hover:tw-bg-[#d9d9d9] hover:tw-bg-opacity-10 tw-rounded-full tw-cursor-pointer tw-w-[52px] tw-h-[52px] xl:tw-w-auto xl:tw-h-auto xl:tw-py-3 xl:tw-px-4 tw-transition tw-duration-200 tw-ease-out;
     }
 
-    .icon {
-        @apply cursor-pointer w-9 h-9 hover:bg-[#1d9bf0] hover:bg-opacity-10 flex items-center justify-center rounded-full transition ease-out;
+    .tw-icon {
+        @apply tw-cursor-pointer tw-w-9 tw-h-9 hover:tw-bg-[#1d9bf0] hover:tw-bg-opacity-10 tw-flex tw-items-center tw-justify-center tw-rounded-full tw-transition tw-ease-out;
     }
 
     .abanico-transition-button {
-        @apply relative inline-flex items-center justify-start px-6 py-3 overflow-hidden font-medium transition-all rounded hover:bg-white;
+        @apply tw-relative tw-inline-flex tw-items-center tw-justify-start tw-px-6 tw-py-3 tw-overflow-hidden tw-font-medium tw-transition-all tw-rounded hover:tw-bg-white;
         /* "group" cannot be used here */
     }
 
     .abanico-transition-span-one {
-        @apply w-48 h-48 rounded rotate-[-40deg] bg-purple-600 absolute bottom-0 left-0 -translate-x-full ease-out duration-500 transition-all translate-y-full mb-9 ml-9 group-hover:ml-0 group-hover:mb-32 group-hover:translate-x-0;
+        @apply tw-w-48 tw-h-48 tw-rounded tw-rotate-[-40deg] tw-bg-purple-600 tw-absolute tw-bottom-0 tw-left-0 tw--translate-x-full tw-ease-out tw-duration-500 tw-transition-all tw-translate-y-full tw-mb-9 tw-ml-9 group-hover:tw-ml-0 group-hover:tw-mb-32 group-hover:tw-translate-x-0;
     }
 
     .abanico-transition-span-two {
-        @apply relative w-full text-left text-black transition-colors duration-300 ease-in-out group-hover:text-white;
+        @apply tw-relative tw-w-full tw-text-left tw-text-black tw-transition-colors tw-duration-300 tw-ease-in-out group-hover:tw-text-white;
     }
 }

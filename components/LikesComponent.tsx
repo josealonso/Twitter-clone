@@ -50,22 +50,22 @@ export const LikesComponent = ({ session, id }: LikeProps) => {
 
     return (
         <div
-            className="flex items-center space-x-1 group"
+            className="tw-flex tw-items-center tw-space-x-1 tw-group"
             onClick={(e) => {
                 e.stopPropagation();
                 likePost();
             }}
         >
-            <div className="icon group-hover:bg-pink-600/10">
+            <div className="tw-icon group-hover:tw-bg-pink-600/10">
                 {liked ? (
-                    <HeartIconFilled className="h-5 text-pink-600" />
+                    <HeartIconFilled className="tw-h-5 tw-text-pink-600" />
                 ) : (
-                    <HeartIcon className="h-5 group-hover:text-pink-600" />
+                    <HeartIcon className="tw-h-5 group-hover:tw-text-pink-600" />
                 )}
             </div>
             {likes.length > 0 && (
                 <span
-                    className={`group-hover:text-pink-600 text-sm ${liked && "text-pink-600"
+                    className={`group-hover:tw-text-pink-600 tw-text-sm ${liked && "tw-text-pink-600"
                         }`}
                 >
                     {likes.length}

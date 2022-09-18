@@ -90,24 +90,24 @@ export default function PostPage({ trendingResults, followResults, providers }: 
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <main className='bg-black min-h-screen flex max-w-[1500px] mx-auto'>
+            <main className='tw-bg-black tw-min-h-screen tw-flex tw-max-w-[1500px] tw-mx-auto'>
                 <Sidebar />
-                <div className="flex-grow border-l border-r border-gray-700
-                 max-w-2xl sm:ml-[73px] xl:ml-[370px]">
-                    <div className="flex items-center px-1.5 py-2 border-b
-                    border-gray-700 text-[#d9d9d9] font-semibold text-xl
-                    gap-x-4 sticky top-0 z-50 bg-black">
-                        <div className="hoverAnimation w-9 x-9 flex items-center
-                        justify-center xl:px-0"
+                <div className="tw-flex-grow tw-border-l tw-border-r tw-border-gray-700
+                 tw-max-w-2xl sm:tw-ml-[73px] xl:tw-ml-[370px]">
+                    <div className="tw-flex tw-items-center tw-px-1.5 tw-py-2 tw-border-b
+                    tw-border-gray-700 tw-text-[#d9d9d9] tw-font-semibold tw-text-xl
+                    tw-gap-x-4 tw-sticky tw-top-0 tw-z-50 tw-bg-black">
+                        <div className="hoverAnimation tw-w-9 tw-x-9 tw-flex tw-items-center
+                        tw-justify-center xl:tw-px-0"
                             onClick={() => router.push("/")}
                         >
-                            <FaArrowLeft className="h-5 text-white" />
+                            <FaArrowLeft className="tw-h-5 tw-text-white" />
                         </div>
                         Tweet
                     </div>
                     <Post id={id} post={post} postPage />
                     {comments?.length > 0 && (
-                        <div className="pb-72">
+                        <div className="tw-pb-72">
                             {comments?.map(comment => {
                                 <Comment key={comment.id} id={comment.id}
                                     comment={comment.data()} />

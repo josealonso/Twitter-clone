@@ -9,15 +9,15 @@ export const Comment = (props: CommentProps) => {
     const { id, post, postPage } = props;
 
     return (
-        <div className="p-3 flex cursor-pointer border-b
-         border-gray-700">
+        <div className="tw-p-3 tw-flex tw-cursor-pointer tw-border-b
+        tw-border-gray-700">
             <img
                 src={comment?.userImg}
                 alt=""
-                className="h-11 w-11 rounded-full mr-4"
+                className="tw-h-11 tw-w-11 tw-rounded-full tw-mr-4"
             />
-            <div className="flex flex-col space-y-2 w-full">
-                <div className="flex justify-between">
+            <div className="tw-flex tw-flex-col tw-space-y-2 tw-w-full">
+                <div className="tw-flex tw-justify-between">
                     <div>
                         <div>
                             <h4>
