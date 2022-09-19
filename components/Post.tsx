@@ -7,6 +7,7 @@ import Moment from "react-moment";
 import { useRecoilState } from "recoil";
 import { modalState, postIdState } from "../atoms/modelAtom";
 import { db } from "../configs/firebase";
+import { Comment } from "./Comment";
 import { CommentIcon } from "./CommentIcon";
 import { TrashIconComponent } from "./TrashIconComponent";
 import { LikesComponent } from "./LikesComponent";
@@ -71,7 +72,7 @@ export const Post = (props: PostProps) => {
                             </h4>
                             <span className={`text-sm sm:text-[15px] ${!postPage && "ml-1.5"}`}
                             >
-                                @{post?.tag}
+                                {" "}@{post?.tag}
                             </span>
                         </div>{" "}.{" "}
                         <span className="hover:tw-underline tw-text-sm sm:tw-text-[15px]">
