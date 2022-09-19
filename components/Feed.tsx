@@ -1,4 +1,4 @@
-import { collection, DocumentData, onSnapshot, orderBy, query } from "firebase/firestore";
+import { collection, DocumentData, onSnapshot, orderBy, query, QueryDocumentSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { HiOutlineSparkles as SparklesIcon } from "react-icons/hi";
 import { db } from "../configs/firebase";
@@ -6,7 +6,7 @@ import { Input } from "./Input";
 import { MyPost, Post } from "./Post";
 
 export const Feed = () => {
-    const [posts, setPosts] = useState([]);
+    const [posts, setPosts] = useState<QueryDocumentSnapshot<DocumentData>[]>();
 
     useEffect(
         () =>
@@ -33,7 +33,7 @@ export const Feed = () => {
             </div>
             <Input />
             <div className="tw-pb-72">
-                {posts.map((post: MyPost) => (
+                {posts?.map((post) => (
                     <Post key={post.id} id={post.id} post={post.data()} />
                 ))}
             </div>

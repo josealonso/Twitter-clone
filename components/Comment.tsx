@@ -1,10 +1,10 @@
-import { DocumentData } from "firebase/firestore"
+import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore"
 import { HiDotsHorizontal } from "react-icons/hi";
 import Moment from "react-moment";
 import { MyPost } from "./Post"
 
 interface CommentProps {
-    comment: any;
+    comment: any;    // QueryDocumentSnapshot<DocumentData>;
 }
 
 export const Comment = ({ comment }: CommentProps) => {

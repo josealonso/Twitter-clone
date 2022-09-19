@@ -3,6 +3,7 @@ import { BsFillCalendarDayFill as CalendarIcon } from "react-icons/bs";
 import { FaChartBar as ChartBarIcon } from "react-icons/fa";
 import { RiRemixiconLine as XIcon } from "react-icons/ri";
 import { HiOutlineEmojiHappy as EmojiHappyIcon, HiPhotograph as PhotographIcon } from "react-icons/hi";
+import { EmojiProps } from "emoji-mart";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import { db, storage } from "../configs/firebase";
@@ -14,8 +15,8 @@ import {
     updateDoc,
 } from "@firebase/firestore";
 import { getDownloadURL, ref, uploadString } from "@firebase/storage";
-import { Emoji } from "emoji-mart/dist-es/utils/data";
 import { useSession } from "next-auth/react";
+
 
 export const Input = () => {
     const [input, setInput] = useState("");
@@ -31,10 +32,10 @@ export const Input = () => {
         setLoading(true);
 
         const docRef = await addDoc(collection(db, "posts"), {
-            id: session?.user.id,
-            username: session?.user.name,
-            userImg: session?.user.image,
-            tag: session.user.tag,
+            id: session?.user?.id,
+            username: session?.user?.name,
+            userImg: session?.user?.image,
+            tag: session?.user?.tag,
             text: input,
             timestamp: serverTimestamp(),
         });
@@ -57,9 +58,9 @@ export const Input = () => {
     };
 
 
-    // const addImageToPost = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const addImageToPost = (event) => {
-        const enteredFile = event.target.files[0];
+    const addImageToPost = (event: React.ChangeEvent<HTMLInputElement> | null) => {
+    // const addImageToPost = (event) => {
+        const enteredFile = event?.target?.files?.length > 0 ? event.target.files[0] : undefined;
         const fileReader = new FileReader();
         if (enteredFile) {
             fileReader.readAsDataURL(enteredFile);  // Blob type
@@ -73,10 +74,10 @@ export const Input = () => {
         };
     };
 
-    const addEmoji = (event: Emoji) => {
+    const addEmoji = (event: EmojiProps) => {
         console.log("INSIDE addEmoji !!");
         console.log("emoji: ", event);
-        let emojiText = event.native;   // Reason of this "error": the emoji package has no types
+        let emojiText = event.native; 
         console.log("emojiText: ", emojiText);
         setInput(input + emojiText);
     };

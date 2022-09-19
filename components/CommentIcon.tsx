@@ -1,8 +1,9 @@
+import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
 import {
     BsChatRightText as ChatIcon,
 } from "react-icons/bs";
 
-export const CommentIcon = (comments: string[]) => {
+export const CommentIcon = (comments: QueryDocumentSnapshot<DocumentData>[]) => {
 
     return (
         <div

@@ -1,4 +1,4 @@
-import { collection, DocumentData, onSnapshot, orderBy, query, setDoc } from "firebase/firestore";
+import { collection, DocumentData, onSnapshot, orderBy, query, QueryDocumentSnapshot, setDoc } from "firebase/firestore";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -16,7 +16,7 @@ export type MyPost = PostProps;
 
 interface PostProps {
     // key: number
-    id: number | undefined
+    id: any
     post: any     // DocumentData
     postPage?: MyPost
 }
@@ -26,7 +26,7 @@ export const Post = (props: PostProps) => {
     const { data: session } = useSession();
     const [isOpen, setIsOpen] = useRecoilState(modalState);  // Recoil is a state management tool
     const [postId, setPostId] = useRecoilState(postIdState); // Recoil is a state management tool
-    const [comments, setComments] = useState([]);
+    const [comments, setComments] = useState<QueryDocumentSnapshot<DocumentData>[]>();
     const router = useRouter();
 
     useEffect(
