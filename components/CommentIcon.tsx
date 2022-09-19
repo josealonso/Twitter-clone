@@ -9,8 +9,8 @@ export const CommentIcon = (comments: string[]) => {
             className="tw-flex tw-items-center tw-space-x-1 tw-group"
             onClick={(e) => {
                 e.stopPropagation();
-                setPostId(id);
-                setIsOpen(true);
+                // setPostId(id);
+                // setIsOpen(true);
             }}
         >
 
