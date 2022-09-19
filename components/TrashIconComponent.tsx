@@ -19,18 +19,19 @@ export const TrashIconComponent = ({ session, id, post }: DeleteComponentProps) 
     const openDialog = () => {
         setIsAlertOpen(true);
     }
-/* IMP ---> post.id != id */
+    /* IMP ---> post.id != id */
     const closeDialog = () => {
         setIsAlertOpen(false);
     }
 
     return (
         <div>
-            {session?.user?.id === post.id ? (   
+            {/* @ts-ignore */}
+            {session?.user?.id === post.id ? (
                 <div
                     className="tw-flex tw-items-center tw-space-x-1 tw-group"
                     onClick={(e) => {
-                        console.log("TRASHIcon - idUser: ", session?.user.id);
+                        // console.log("TRASHIcon - idUser: ", session?.user.id);
                         // console.log("TRASHIcon - idPost: ", post.id);
                         e.stopPropagation();
                         openDialog();

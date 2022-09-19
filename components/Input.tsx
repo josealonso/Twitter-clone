@@ -33,9 +33,11 @@ export const Input = () => {
         setLoading(true);
 
         const docRef = await addDoc(collection(db, "posts"), {
+            // @ts-ignore
             id: session?.user?.id,
             username: session?.user?.name,
             userImg: session?.user?.image,
+            // @ts-ignore
             tag: session?.user?.tag,
             text: input,
             timestamp: serverTimestamp(),
@@ -60,7 +62,7 @@ export const Input = () => {
 
 
     const addImageToPost = (event: React.ChangeEvent<HTMLInputElement> | null) => {
-    // const addImageToPost = (event) => {
+        // @ts-ignore
         const enteredFile = event?.target?.files?.length > 0 ? event.target.files[0] : undefined;
         const fileReader = new FileReader();
         if (enteredFile) {
@@ -69,16 +71,15 @@ export const Input = () => {
 
         fileReader.onload = (readerEvent) => {
             let contents = readerEvent.target?.result;
+            // @ts-ignore
             setSelectedFile(contents);
-            // console.log("AAAAAAAAAAA - Inside addImageToPost ", event.currentTarget.files[0]);
-            // setSelectedFile(event.currentTarget.files[0]);
         };
     };
 
     const addEmoji = (event: EmojiProps) => {
         console.log("INSIDE addEmoji !!");
         console.log("emoji: ", event);
-        let emojiText = event.native; 
+        let emojiText = event.native;
         console.log("emojiText: ", emojiText);
         setInput(input + emojiText);
     };
@@ -88,6 +89,7 @@ export const Input = () => {
             className={`tw-border-b tw-border-gray-700 tw-p-3 tw-flex tw-gap-x-3
             tw-overflow-y-scroll tw-scrollbar-hide`} >
             <img
+                // @ts-ignore
                 src={session?.user?.image}
                 alt=""
                 className="tw-h-11 tw-w-11 tw-rounded-full tw-cursor-pointer"

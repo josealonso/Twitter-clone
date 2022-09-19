@@ -27,11 +27,13 @@ export const Modal = (props: ModalProps) => {
     );
 
     const sendComment = async () => {
+        // @ts-ignore
         e.preventDefault();
 
         await addDoc(collection(db, "posts", postId, "comments"), {
             comment: comment,
             username: session?.user?.name,
+            // @ts-ignore
             tag: session?.user?.tag,
             userImg: session?.user?.image,
             timestamp: serverTimestamp(),
