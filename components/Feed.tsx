@@ -6,7 +6,7 @@ import { Input } from "./Input";
 import { MyPost, Post } from "./Post";
 
 export const Feed = () => {
-    const [posts, setPosts] = useState<DocumentData>([]);
+    const [posts, setPosts] = useState([]);
 
     useEffect(
         () =>

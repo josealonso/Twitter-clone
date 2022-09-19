@@ -17,7 +17,7 @@ export type MyPost = PostProps;
 interface PostProps {
     // key: number
     id: number | undefined
-    post: DocumentData
+    post: any     // DocumentData
     postPage?: MyPost
 }
 
