@@ -5,6 +5,7 @@ import { RiRemixiconLine as XIcon } from "react-icons/ri";
 import { HiOutlineEmojiHappy as EmojiHappyIcon, HiPhotograph as PhotographIcon } from "react-icons/hi";
 import { EmojiProps } from "emoji-mart";
 import data from "@emoji-mart/data";
+// @ts-ignore
 import Picker from "@emoji-mart/react";
 import { db, storage } from "../configs/firebase";
 import {
