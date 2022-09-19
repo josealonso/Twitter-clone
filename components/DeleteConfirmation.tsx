@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
     AlertDialog,
     AlertDialogBody,
@@ -13,7 +13,7 @@ import { db } from '../configs/firebase';
 
 interface Props {
     isDialogOpened: boolean;
-    handleCloseDialog: Function;
+    handleCloseDialog: any;
     id: any;
 }
 
@@ -22,7 +22,7 @@ export function DeleteConfirmation({ isDialogOpened, handleCloseDialog, id }: Pr
     const [isAlertOpen, setIsAlertOpen] = useState(false);
 
     // const { isOpen, onOpen, onClose } = useDisclosure()
-    const cancelRef = useRef()
+    const cancelRef = useRef<HTMLButtonElement>(null);
     const onDelete = () => {
         console.log("Post has been DELETED");
         handleCloseDialog();
@@ -36,7 +36,7 @@ export function DeleteConfirmation({ isDialogOpened, handleCloseDialog, id }: Pr
                 // isOpen={isOpen}
                 isOpen={isDialogOpened}
                 leastDestructiveRef={cancelRef}
-            // onClose={handleCloseDialog}
+                onClose={handleCloseDialog}
             >
                 <AlertDialogOverlay>
                     <AlertDialogContent>
