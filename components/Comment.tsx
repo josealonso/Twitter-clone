@@ -4,7 +4,7 @@ import Moment from "react-moment";
 import { MyPost } from "./Post"
 
 interface CommentProps {
-    comment;
+    comment: any;
 }
 
 export const Comment = ({ comment }: CommentProps) => {
