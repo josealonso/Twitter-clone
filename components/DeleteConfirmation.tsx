@@ -14,7 +14,7 @@ import { db } from '../configs/firebase';
 interface Props {
     isDialogOpened: boolean;
     handleCloseDialog: Function;
-    id: number;
+    id: any;
 }
 
 export function DeleteConfirmation({ isDialogOpened, handleCloseDialog, id }: Props) {
