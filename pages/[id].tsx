@@ -61,6 +61,7 @@ export default function PostPage({ trendingResults, followResults, providers }: 
 
     useEffect(
         () =>
+            // @ts-ignore
             onSnapshot(doc(db, "posts", id), (snapshot) => {
                 setPost(snapshot.data());
             }),
@@ -71,6 +72,7 @@ export default function PostPage({ trendingResults, followResults, providers }: 
         () =>
             onSnapshot(
                 query(
+                    // @ts-ignore
                     collection(db, "posts", id, "comments"),
                     orderBy("timestamp", "desc")
                 ),
@@ -105,8 +107,9 @@ export default function PostPage({ trendingResults, followResults, providers }: 
                         </div>
                         Tweet
                     </div>
+                    {/* @ts-ignore */}
                     <Post id={id} post={post} postPage />
-                    {comments?.length > 0 && (
+                    {/* {comments?.length > 0 && (
                         <div className="tw-pb-72">
                             {comments?.map(comment => {
                                 <Comment
@@ -117,7 +120,7 @@ export default function PostPage({ trendingResults, followResults, providers }: 
                             })}
 
                         </div>
-                    )}
+                    )} */}
                 </div>
 
                 {/* Widgets */}
