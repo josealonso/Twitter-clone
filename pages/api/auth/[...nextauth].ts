@@ -19,7 +19,9 @@ export default NextAuth({
             clientSecret: process.env.TWITTER_CLIENT_SECRET !== undefined ? process.env.TWITTER_CLIENT_SECRET : undefined,
         }),
         LinkedinProvider({
+            // @ts-ignore
             clientId: process.env.LINKEDIN_CLIENT_ID,
+            // @ts-ignore
             clientSecret: process.env.LINKEDIN_CLIENT_SECRET !== undefined ? process.env.LINKEDIN_CLIENT_SECRET : undefined,
             authorizationUrl: `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${process.env.LINKEDIN_CLIENT_ID}&redirect_uri=&state=a_random_string_that_is_really_difficult_and_random_2341344&scope=r_liteprofile%20r_emailaddress`,
         }),
