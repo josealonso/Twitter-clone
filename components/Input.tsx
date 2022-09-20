@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react"
+import { v4 as uuid } from "uuid";
 import { BsFillCalendarDayFill as CalendarIcon } from "react-icons/bs";
 import { FaChartBar as ChartBarIcon } from "react-icons/fa";
 import { RiRemixiconLine as XIcon } from "react-icons/ri";
@@ -27,21 +28,26 @@ export const Input = () => {
     const filePickerRef = useRef<HTMLInputElement>(null);
 
     const { data: session } = useSession();
+    // const uniqueId = uuid();
 
     const sendPost = async () => {
         if (loading) return;
         setLoading(true);
 
         const docRef = await addDoc(collection(db, "posts"), {
-            // @ts-ignore
-            id: session?.user?.id,
+            // id: token.sub,    //   session?.user?.id,
+            // id: 2,  // jwt(req, res);
+            id: uuid(),
             username: session?.user?.name,
             userImg: session?.user?.image,
-            // @ts-ignore
-            tag: session?.user?.tag,
+            tag: session?.user?.name?.split(" ").join("").toLowerCase(),
             text: input,
             timestamp: serverTimestamp(),
         });
+
+        // let userTag = session?.user?.name?.
+        //     split(" ").join("").toLowerCase();
+        // let userId = token.sub;
 
         const imageRef = ref(storage, `posts/${docRef.id}/image`);
 
@@ -66,7 +72,7 @@ export const Input = () => {
         const enteredFile = event?.target?.files?.length > 0 ? event.target.files[0] : undefined;
         const fileReader = new FileReader();
         if (enteredFile) {
-            fileReader.readAsDataURL(enteredFile);  // Blob type
+            fileReader.readAsDataURL(enteredFile);  // Blob type (File)
         }
 
         fileReader.onload = (readerEvent) => {

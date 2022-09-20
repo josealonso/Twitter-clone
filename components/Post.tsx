@@ -120,7 +120,7 @@ export const Post = (props: PostProps) => {
 
 
                         {!postPage && (
-                            <>
+                            <>  {/* @ts-ignore */}
                                 <CommentIcon comments={comments} />
 
                                 <TrashIconComponent session={session} id={id} post={post} />

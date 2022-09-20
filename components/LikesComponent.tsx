@@ -12,10 +12,8 @@ interface Like {
 }
 
 interface LikeProps {
-    // idUser: string
-    // idPost: string
     session: Session | null;
-    id: number
+    id: string
 }
 
 export const LikesComponent = ({ session, id }: LikeProps) => {
@@ -25,6 +23,7 @@ export const LikesComponent = ({ session, id }: LikeProps) => {
     useEffect(
         () =>
             onSnapshot(collection(db, "posts", id, "likes"), (snapshot) =>
+                // @ts-ignore
                 setLikes(snapshot.docs)
             ),
         [db, id]
@@ -33,16 +32,19 @@ export const LikesComponent = ({ session, id }: LikeProps) => {
     useEffect(
         () =>
             setLiked(
-                likes.findIndex((like: Like) => like.id === session?.user?.id) !== -1
+                // likes.findIndex((like: Like) => like.id === session?.user?.id) !== -1
+                likes.findIndex((like: Like) => like.id === id) !== -1
             ),
         [likes]
     );
 
     const likePost = async () => {
         if (liked) {
-            await deleteDoc(doc(db, "posts", id, "likes", session.user?.id));
+            // await deleteDoc(doc(db, "posts", id, "likes", session.user?.id));
+            await deleteDoc(doc(db, "posts", id, "likes", id));
         } else {
-            await setDoc(doc(db, "posts", id, "likes", session.user?.id), {
+            // await setDoc(doc(db, "posts", id, "likes", session.user?.id), {
+            await setDoc(doc(db, "posts", id, "likes", id), {
                 username: session?.user?.name,
             });
         }

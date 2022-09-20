@@ -10,13 +10,15 @@ export const Login = ({ providers }: Props) => {
     return (
         <div className="tw-flex tw-flex-col tw-items-center tw-gap-y-20 tw-pt-40">
             <div>
+                {/* @ts-config */}
                 <button className="tw-relative tw-inline-flex tw-items-center tw-justify-start tw-px-6 tw-py-3 tw-overflow-hidden tw-font-medium tw-transition-all
         tw-bg-white tw-rounded hover:tw-bg-white tw-group"
-                    onClick={() => signIn(providers, { callbackUrl: "/" })}
+                    // onClick={() => signIn(providers, { callbackUrl: "/" })}
+                    onClick={() => signIn()}
                 >
                     <span className="abanico-transition-span-one"></span>
                     <span className="abanico-transition-span-two">
-                        Sign in 
+                        Sign in
                     </span>
                 </button>
             </div>

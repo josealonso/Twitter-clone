@@ -19,31 +19,35 @@ export default NextAuth({
             clientSecret: process.env.TWITTER_CLIENT_SECRET !== undefined ? process.env.TWITTER_CLIENT_SECRET : undefined,
         }),
         LinkedinProvider({
-            // @ts-ignore
             clientId: process.env.LINKEDIN_CLIENT_ID,
-            // @ts-ignore
             clientSecret: process.env.LINKEDIN_CLIENT_SECRET !== undefined ? process.env.LINKEDIN_CLIENT_SECRET : undefined,
             authorizationUrl: `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${process.env.LINKEDIN_CLIENT_ID}&redirect_uri=&state=a_random_string_that_is_really_difficult_and_random_2341344&scope=r_liteprofile%20r_emailaddress`,
         }),
 
         // add more providers here
     ],
-    callbacks: {
-        async session({ session, token }) {
-            // @ts-ignore
-            session?.user?.tag = session?.user?.name
-                .split(" ")
-                .join("")
-                .toLocaleLowerCase();
-            // @ts-ignore
-            session.user.id = token.sub;
-            return session;
-        },
-    },
+    // secret: process.env.SECRET,
+
     // session: {
-    //     strategy: 'jwt'
+    //     strategy: "jwt"
     // },
-    jwt: {},
-    pages: {},
+    // jwt: {
+    //     secret: process.env.SECRET,
+    // },
+    // pages: {},
+    // callbacks: {
+    //     async session({ session, token }) {
+    //         let userTag = session?.user?.name?.
+    //             split(" ").join("").toLowerCase();
+    //         // session?.user?.tag = session?.user?.name
+    //         let tokenId = token.sub;
+    //         Object.defineProperty(String, "tag", userTag);
+    //         let str = session.user.tag;
+    //         console.log("tokenId: ", tokenId);
+    //         // session.user.id = token.sub;
+    //         return session;
+    //     },
+    // },
     events: {},
+    debug: true,
 });

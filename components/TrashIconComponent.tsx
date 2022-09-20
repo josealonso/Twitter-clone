@@ -26,8 +26,9 @@ export const TrashIconComponent = ({ session, id, post }: DeleteComponentProps) 
 
     return (
         <div>
-            {/* @ts-ignore */}
-            {session?.user?.id === post.id ? (
+
+            {/* {session?.user?.id === post.id ? ( */}
+            {1 === 1 ? ( 
                 <div
                     className="tw-flex tw-items-center tw-space-x-1 tw-group"
                     onClick={(e) => {
